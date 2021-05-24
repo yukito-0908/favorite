@@ -3,8 +3,7 @@ class CreateFollowRelationships < ActiveRecord::Migration[5.0]
     create_table :follow_relationships do |t|
       t.references :follower, foreign_key: { to_table: :users }
       t.references :following, foreign_key: { to_table: :users }
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.timestamps null: false
     end
       add_index :follow_relationships, [:follower_id, :following_id], unique: true
   end

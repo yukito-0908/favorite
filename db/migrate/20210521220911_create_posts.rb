@@ -8,8 +8,7 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       t.text :introduction
       t.integer :price
       t.integer :genre_name, default: 0
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.timestamps null: false
     end
   end
 end

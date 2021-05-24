@@ -6,8 +6,7 @@ class CreatePostItems < ActiveRecord::Migration[5.0]
       t.string :post_item_image
       t.string :place
       t.text :introduction
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.timestamps null: false
     end
   end
 end

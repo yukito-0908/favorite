@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <%= form_with model: @profile,url: public_profiles_path, local:true do |f| %>
+        <div class="profile">
+          <div class="profile-title">
+            <h1>プロフィール新規登録</h1>
+          </div>
+            <div class="profile-item">
+              <div class="profile-name">
+                <p>名前</p>
+                <div><%= f.text_field :name %></div>
+              </div>
+                <div class="instagram_id">
+                  <p>instagram_id</p>
+                  <div><%= f.text_field :instagram_id %></div>
+                </div>
+                  <div class="profile-image">
+                    <p>プロフィール画像</p>
+                    <div><%= f.attachment_field :image %></div>
+                  </div>
+                    <div class="profile-introduction">
+                      <p>自己紹介</p>
+                      <div><%= f.text_area :introduction %></div>
+                    </div>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

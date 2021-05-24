@@ -5,9 +5,8 @@ class CreateProfiles < ActiveRecord::Migration[5.0]
       t.string :instagram_id
       t.string :name
       t.text :introduction
-      t.string :profile_image
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.string :image_id
+      t.timestamps null: false
     end
   end
 end

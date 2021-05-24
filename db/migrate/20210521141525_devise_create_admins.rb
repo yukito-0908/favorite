@@ -8,8 +8,7 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.0]
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
       t.datetime :remember_created_at
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.timestamps null: false
     end
     add_index :admins, :email,                unique: true
     add_index :admins, :reset_password_token, unique: true

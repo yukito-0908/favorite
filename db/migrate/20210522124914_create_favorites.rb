@@ -3,8 +3,7 @@ class CreateFavorites < ActiveRecord::Migration[5.0]
     create_table :favorites do |t|
       t.references :user, foreign_key: true
       t.references :post, foreign_key: true
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.timestamps null: false
     end
   end
 end
