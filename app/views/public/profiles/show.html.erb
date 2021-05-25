@@ -2,18 +2,13 @@
   <div class="row">
     <div class="col">
       <div class="profile">
-        <div class="profile">
-          <% if @user.is_active == "E" %>
-            <h1>まずはプロフィールを登録しよう</h1>
-
-          <% elsif @profile.is_active == "B" %>
           <div class="profile-title">
              <h2>プロフィール</h2>
           </div>
           <div class="profile-all d-flex">
             <div class="profile-list d-flex">
                   <div class="profile-image">
-                    <%= image_tag attachment_url(@profile, :image, :fill, 250, 250, format: "jpg",fallback: "user.jpeg") %>
+                    <%= image_tag attachment_url(@profile, :image, :fill, 250, 250, format: "user.jpeg") %>
                   </div>
                     <div class="profile-path m-4">
                       <div class="profile-item d-flex">
@@ -46,9 +41,11 @@
                         </div>
                 </div>
           </div>
-          <% end %>
         </div>
-      </div>
     </div>
   </div>
 </div>
+
+
+
+

@@ -1,6 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col">
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
       <%= form_with model: @profile,url: public_profiles_path, local:true do |f| %>
         <div class="profile">
           <div class="profile-title">
@@ -23,6 +32,10 @@
                       <p>自己紹介</p>
                       <div><%= f.text_area :introduction %></div>
                     </div>
+                    <div><%= f.hidden_field :is_active, :value => "B" %></div>
+                      <div class="submit">
+                        <%= f.submit '保存する' %>
+                      </div>
             </div>
         </div>
       <% end %>

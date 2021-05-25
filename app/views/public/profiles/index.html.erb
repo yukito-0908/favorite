@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>プロフィール画像</th>
+              <th>プロフィールname</th>
+              <th>instagram_id</th>
+            </tr>
+          </thead>
+            <thead>
+              <% @profiles.each do |profile| %>
+                <tr>
+                  <td><%= image_tag attachment_url(profile, :image, :fill, 25, 25, format: "user.jpeg") %></td>
+                  <td><%=link_to profile.name,public_profile_path(profile.id),class: "text-success" %></td>
+                  <td><%= profile.instagram_id %></td>
+                </tr>
+              <% end %>
+            </thead>
+        </table>
+    </div>
+  </div>
+</div>

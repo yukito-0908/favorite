@@ -10,7 +10,8 @@ devise_for :users, controllers: {
 namespace :public, path: "" do
   resources :users, only: [:edit, :update]
   get '/profiles/mypage' => 'profiles#mypage'
-  resources :profiles, only: [:new, :show ,:edit ,:update ,:create ]
+  resources :profiles
+  resources :posts, only: [:index,:create]
 end
 
   devise_for :admins
