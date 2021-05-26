@@ -40,7 +40,7 @@
                           <%= link_to 'プロフィールを切り替える', public_profiles_path, class: "btn btn-info" %>
                         </div>
                            <div class="profile-post">
-                            <%= link_to '新規投稿',  public_posts_path, class: "btn btn-secondary" %>
+                            <%= link_to '新規投稿',   public_profile_posts_path(@profile), class: "btn btn-secondary" %>
                           </div>
                 </div>
           </div>

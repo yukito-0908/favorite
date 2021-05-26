@@ -1,8 +1,15 @@
-<% posts.each do |post| %>
-  <div class="card mb-1">
-    <div class="card-body">
-      <p class="card-text"><%= post.title %></p>
-      <p class="card-text"><small><%= simple_fomat post.genre_name %></small></p>
+ <div class="container">
+   <div class="row">
+     <div class="col">
+     <% posts.each do |post| %>
+    <div class="card mb-1">
+      <div class="card-body">
+        <p class="card-text"><%= post.title %></p>
+        <p class="card-text"><small><%=  post.genre_name %></small></p>
+      </div>
     </div>
+  <% end %>
+     </div>
+   </div>
+
   </div>
-<% end %>

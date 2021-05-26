@@ -8,7 +8,8 @@ class Public::ProfilesController < ApplicationController
     @user = current_user
     @profiles = current_user.profiles
     @profile = @profiles.first
-    @post = @profs
+    @post = @profile.posts
+
   end
 
   def show
@@ -29,11 +30,7 @@ class Public::ProfilesController < ApplicationController
     @profile = Profile.new(profiles_params)
     @profiles = current_user.profiles
     @profile.user_id = current_user.id
-    @profile.save
-    @post = Post.new(
-      profile_id: @profile.id
-    )
-    if @post.save
+    if @profile.save
       redirect_to  public_profile_path(@profile.id)
     else
       render :new

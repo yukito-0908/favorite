@@ -5,8 +5,8 @@
             新規投稿
           </button>
        </div>
-      <div class="col-9">
-
+      <div class="col-9 posts">
+        <%= render 'posts' ,posts: @posts %>
       </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <%= form_for @post,url: public_posts_path,remote: true do |f| %>
+            <%= form_for @post,url:  public_profile_posts_path(@profile),remote: true do |f| %>
               <div class="modal-body">
                 <div class="form-title">
                   <p>料理</p>

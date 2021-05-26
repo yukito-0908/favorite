@@ -3,13 +3,16 @@ class Public::PostsController < ApplicationController
   def index
     @post = Post.new
     @posts = Post.all
+    @profile = Profile.find(params[:profile_id])
+
 
   end
 
   def create
+    @profile = Profile.find(params[:profile_id])
     @post = Post.new(posts_params)
-    @profile = current_user.profiles
-    @post.save!
+    @post.profile_id = @profile.id
+    @post.save
     @posts = Post.all
   end
 
