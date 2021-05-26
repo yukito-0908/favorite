@@ -8,10 +8,12 @@ class Public::ProfilesController < ApplicationController
     @user = current_user
     @profiles = current_user.profiles
     @profile = @profiles.first
+    @post = @profs
   end
 
   def show
     @profile = Profile.find(params[:id])
+     @post = @profile.posts
     @profiles = Profile.all
   end
 
@@ -26,8 +28,12 @@ class Public::ProfilesController < ApplicationController
     )
     @profile = Profile.new(profiles_params)
     @profiles = current_user.profiles
-     @profile.user_id = current_user.id
-    if @profile.save
+    @profile.user_id = current_user.id
+    @profile.save
+    @post = Post.new(
+      profile_id: @profile.id
+    )
+    if @post.save
       redirect_to  public_profile_path(@profile.id)
     else
       render :new

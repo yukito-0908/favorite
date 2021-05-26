@@ -1,18 +1,21 @@
 class Public::PostsController < ApplicationController
 
   def index
-    @posts = Post.all
     @post = Post.new
+    @posts = Post.all
+
   end
 
   def create
     @post = Post.new(posts_params)
+    @profile = current_user.profiles
+    @post.save!
     @posts = Post.all
   end
 
   protected
 
   def posts_params
-    params.require(:post).permit(:instagram_id, :name, :introduction, :image ,:is_active, :user_id)
+    params.require(:post).permit(:title, :genre_name)
   end
 end
