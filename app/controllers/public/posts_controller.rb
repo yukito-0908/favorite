@@ -7,7 +7,7 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = Post.new(posts_params)
-    @post.profile_id = current_profile.id
+    @posts = Post.all
   end
 
   protected

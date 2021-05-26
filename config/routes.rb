@@ -12,6 +12,7 @@ namespace :public, path: "" do
   get '/profiles/mypage' => 'profiles#mypage'
   resources :profiles
   resources :posts, only: [:index,:create]
+
 end
 
   devise_for :admins
