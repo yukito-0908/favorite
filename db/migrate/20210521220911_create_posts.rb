@@ -3,9 +3,10 @@ class CreatePosts < ActiveRecord::Migration[5.0]
     create_table :posts do |t|
       t.integer :profile_id
       t.string :title
-      t.string :post_image
       t.string :tag
+      t.string :picture
       t.text :introduction
+      t.json :images
       t.integer :price
       t.integer :genre_name, default: 0
       t.timestamps null: false

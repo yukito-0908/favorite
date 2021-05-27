@@ -8,13 +8,11 @@ class Public::ProfilesController < ApplicationController
     @user = current_user
     @profiles = current_user.profiles
     @profile = @profiles.first
-    @post = @profile.posts
 
   end
 
   def show
     @profile = Profile.find(params[:id])
-     @post = @profile.posts
     @profiles = Profile.all
   end
 

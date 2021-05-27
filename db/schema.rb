@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_134611) do
+ActiveRecord::Schema.define(version: 2021_05_26_201259) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(version: 2021_05_22_134611) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "post_images", force: :cascade do |t|
+    t.integer "post_id"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "post_items", force: :cascade do |t|
     t.integer "post_id"
     t.string "item"
@@ -99,9 +106,10 @@ ActiveRecord::Schema.define(version: 2021_05_22_134611) do
   create_table "posts", force: :cascade do |t|
     t.integer "profile_id"
     t.string "title"
-    t.string "post_image"
     t.string "tag"
+    t.string "picture"
     t.text "introduction"
+    t.json "images"
     t.integer "price"
     t.integer "genre_name", default: 0
     t.datetime "created_at", null: false
@@ -129,8 +137,8 @@ ActiveRecord::Schema.define(version: 2021_05_22_134611) do
   create_table "tag_maps", force: :cascade do |t|
     t.integer "post_id"
     t.integer "tag_id"
-    t.datetime "created_at", default: "2021-05-23 12:14:53"
-    t.datetime "updated_at", default: "2021-05-23 12:14:53"
+    t.datetime "created_at", default: "2021-05-26 20:08:46"
+    t.datetime "updated_at", default: "2021-05-26 20:08:46"
     t.index ["post_id"], name: "index_tag_maps_on_post_id"
     t.index ["tag_id"], name: "index_tag_maps_on_tag_id"
   end
