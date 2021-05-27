@@ -17,6 +17,11 @@ class Public::PostsController < ApplicationController
   end
   end
 
+  def show
+    @profile = Profile.find(params[:profile_id])
+    @post = Post.find(params[:id])
+  end
+
   protected
 
   def posts_params

@@ -1,5 +1,25 @@
 class Post < ApplicationRecord
   belongs_to :profile
+  has_many :post_item
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps
+  accepts_nested_attributes_for :post_item
+  
+   def save_tag(sent_tags)
+      current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
+      old_tags = current_tags - sent_tags
+      new_tags = sent_tags - current_tags
+  　
+      old_tags.each do |old|
+        self.post_tags.delete PostTag.find_by(tag_name: old)
+      end
+  　
+      new_tags.each do |new|
+        new_post_tag = PostTag.find_or_create_by(tag_name: new)
+        self.post_tags << new_post_tag
+      end
+  end
+  
   mount_uploaders :images, ImageUploader
   enum genre_name: { 寿司・魚料理: 0, 和食・日本料理: 1, ラーメン・麺類: 2, 丼もの・揚げ物: 3,
                     お好み焼き・粉物: 4, 郷土料理: 5, アジア・エスニック: 6, 中華: 7,

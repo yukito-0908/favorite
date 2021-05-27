@@ -10,6 +10,7 @@
                     <th>料理説明</th>
                     <th>料理説明</th>
                     <th>値段</th>
+                    <th>料理詳細</th>
                  </tr>
                 </thead>
                   <tbody>
@@ -24,6 +25,9 @@
                             <%= image_tag (post.url),width: '30px', height: '30px' %>
                           <% end %>
                         </td>
+                        <td>
+                          <%= link_to '料理詳細へ', public_profile_post_path(@profile.id,post.id) ,class: "btn btn-success" %>
+                        </td>
                       </tr>
                      <% end %>
                   </tbody>
@@ -35,6 +39,14 @@
        </div>
     </div>
   </div>
+
+
+
+
+
+
+
+
 
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -5,6 +5,7 @@ class CreatePostItems < ActiveRecord::Migration[5.0]
       t.string :item
       t.string :post_item_image
       t.string :place
+      t.json :images
       t.text :introduction
       t.timestamps null: false
     end

@@ -11,7 +11,10 @@ namespace :public, path: "" do
   resources :users, only: [:edit, :update]
   get '/profiles/mypage' => 'profiles#mypage'
   resources :profiles do
-    resources :posts, only: [:index,:create]
+   resources :posts, only: [:index,:create,:show]
+  end
+    resources :tags do
+    get 'posts', to: 'posts#search'
   end
 
 end

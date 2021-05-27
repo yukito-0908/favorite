@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2021_05_26_201259) do
     t.string "item"
     t.string "post_item_image"
     t.string "place"
+    t.json "images"
     t.text "introduction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
