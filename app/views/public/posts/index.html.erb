@@ -1,6 +1,10 @@
 <div class="container mt-5">
       <div class="row">
          <div class="col">
+         <%  @tag_list.each do |tag| %>
+           <%=link_to tag.tag_name,public_tag_path(tag,tag_id: tag.id)  %>
+          <%= "(#{tag.posts.count})" %>
+        <% end %>
            <table class= "table">
                <h5>投稿一覧</h5>
                <thead>
@@ -81,6 +85,9 @@
                         <%= f.label '料理画像' %>
                         <%= f.file_field :images, multiple: true %>
                       </div>
+                        <%= f.text_field :tag_ids, class: "form-control", id:'tag_ids',\
+                        placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+
                     </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>

@@ -3,8 +3,8 @@ class CreateTagMaps < ActiveRecord::Migration[5.0]
     create_table :tag_maps do |t|
       t.references :post, foreign_key: true
       t.references :tag, foreign_key: true
-      t.timestamp :created_at, default: Time.now
-      t.timestamp :updated_at, default: Time.now
+      t.timestamps null: false
     end
+    add_index :tag_maps, [:post_id,:tag_id],unique: true
   end
 end

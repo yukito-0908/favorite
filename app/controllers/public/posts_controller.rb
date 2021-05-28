@@ -3,14 +3,19 @@ class Public::PostsController < ApplicationController
   def index
     @profile = Profile.find(params[:profile_id])
     @post = Post.new
+    @tag_list = Tag.all
     @posts = Post.all.page(params[:page]).per(10)
+    @post_tags = @post.tags
   end
 
   def create
+
     @profile = Profile.find(params[:profile_id])
     @post = Post.new(posts_params)
     @post.profile_id = @profile.id
-  if  @post.save
+   tag_list = params[:post][:tag_ids].split(',')
+    @post.save
+  if  @post.save_tag(tag_list)
     redirect_to   public_profile_posts_path(@profile)
   else
     render index
