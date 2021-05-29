@@ -12,6 +12,12 @@ class Post < ApplicationRecord
   end
 end
 
+
+def self.search(profile_id,keyword)
+  where(["profile_id = ? and (title like ? OR introduction like ?)","#{profile_id}" ,"%#{keyword}%", "%#{keyword}%"])
+end
+
+
   mount_uploaders :images, ImageUploader
   enum genre_name: { 寿司・魚料理: 0, 和食・日本料理: 1, ラーメン・麺類: 2, 丼もの・揚げ物: 3,
                     お好み焼き・粉物: 4, 郷土料理: 5, アジア・エスニック: 6, 中華: 7,

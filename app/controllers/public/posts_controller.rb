@@ -3,13 +3,11 @@ class Public::PostsController < ApplicationController
   def index
     @profile = Profile.find(params[:profile_id])
     @post = Post.new
-    @tag_list = Tag.all
+    @tag_lists = Tag.all
     @posts = Post.all.page(params[:page]).per(10)
-    @post_tags = @post.tags
   end
 
   def create
-
     @profile = Profile.find(params[:profile_id])
     @post = Post.new(posts_params)
     @post.profile_id = @profile.id
@@ -25,7 +23,17 @@ class Public::PostsController < ApplicationController
   def show
     @profile = Profile.find(params[:profile_id])
     @post = Post.find(params[:id])
+    @post_tags = @post.tags
   end
+
+def search
+  @profile = Profile.find(params[:profile_id])
+  @tag_lists = Tag.all  #
+  @post = Post.new
+  @posts = Post.search(params[:profile_id],params[:keyword]).page(params[:page]).per(10)
+  @keyword = params[:keyword]
+  render "index"
+end
 
   protected
 

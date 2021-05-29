@@ -1,10 +1,15 @@
 <div class="container mt-5">
       <div class="row">
          <div class="col">
-         <%  @tag_list.each do |tag| %>
-           <%=link_to tag.tag_name,public_tag_path(tag,tag_id: tag.id)  %>
-          <%= "(#{tag.posts.count})" %>
-        <% end %>
+           <header class="d-flex">
+                <div class="tag-search">
+                  <p>検索</p>
+                  <%= form_with url: public_profile_search_posts_path(@profile.id), method: :get, local: true do |f| %>
+                    <%= f.text_field :keyword, value: @keyword %>
+                    <%= f.submit "検索" %>
+                  <% end %>
+                </div>
+            </header>
            <table class= "table">
                <h5>投稿一覧</h5>
                <thead>

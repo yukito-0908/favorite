@@ -10,10 +10,19 @@
             </div>
               <div class="post-genre">
                 <p>ジャンル</p>
-                <p><%= @post.genre </p>
+                <p><%= @post.genre_name %></p>
               </div>
-              
-           
+                <div class="post-price">
+                  <p>ジャンル</p>
+                  <p><%= @post.price %></p>
+                </div>
+                  <div class="post-tags">
+                    <p>タグ一覧</p>
+                    <% @post_tags.each do|post_tag| %>
+                      <%= post_tag.tag_name %>
+                    <% end %>
+                  </div>
+
         </div>
       </div>
     </div>
