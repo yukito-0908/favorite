@@ -6,4 +6,10 @@ class Profile < ApplicationRecord
   validates :name, presence: true
   validates :instagram_id, presence: true
   validates :introduction, presence: true
+
+
+  def current_user?(current_user)
+    user == current_user
+  end
+
 end

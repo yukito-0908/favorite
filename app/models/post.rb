@@ -1,9 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :profile
-  has_many :post_item
+  has_many :post_items
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
-  accepts_nested_attributes_for :post_item
+  accepts_nested_attributes_for :post_items
 
     def save_tag(post_tags)
    post_tags.each do |new_name|
@@ -14,7 +14,7 @@ end
 
 
 def self.search(profile_id,keyword)
-  where(["profile_id = ? and (title like ? OR introduction like ?)","#{profile_id}" ,"%#{keyword}%", "%#{keyword}%"])
+  where(["profile_id = ? and (title like ? OR introduction like ?)","##{profile_id}" ,"%#{keyword}%", "%#{keyword}%"])
 end
 
 

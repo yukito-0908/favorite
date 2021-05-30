@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
   </head>
 
   <header>
@@ -14,6 +15,7 @@
   </header>
   <body>
     <%= yield %>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
   </body>
 
 </html>

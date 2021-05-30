@@ -2,26 +2,129 @@
   <div class="row">
     <div class="col">
       <div class="post">
-        <div class="post-title">
-          <h5>料理詳細</h5>
+        <div class="post-items">
+          <div class="post-title">
+            <h5>料理詳細</h5>
             <div class="post-title">
               <p>タイトル</p>
               <p><%= @post.title %></p>
             </div>
-              <div class="post-genre">
-                <p>ジャンル</p>
-                <p><%= @post.genre_name %></p>
-              </div>
-                <div class="post-price">
-                  <p>ジャンル</p>
-                  <p><%= @post.price %></p>
+            <div class="post-genre">
+              <p>ジャンル</p>
+              <p><%= @post.genre_name %></p>
+            </div>
+            <div class="post-price">
+              <p>ジャンル</p>
+              <p><%= @post.price %></p>
+            </div>
+            <div class="post-tags">
+              <p>タグ一覧</p>
+              <% @post_tags.each do|post_tag| %>
+                <%= post_tag.tag_name %>
+              <% end %>
+            </div>
+          </div>
+          <div class="swiper-container">
+            <div class="image-index">
+              <p>料理画像一覧</p>
+            </div>
+            <div class= "swiper-wrapper img-index">
+              <% @post.images.each do |image| %>
+                  <%= image_tag (image.url), class: "swiper-slide index-img" %>
+              <% end %>
+            </div>
+            <div class="swiper-button-prev swiper-button-black"></div>
+            <div class="swiper-button-next swiper-button-black"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <div class="post-edit">
+            <%= link_to '編集する', edit_public_profile_post_path(@profile.id,@post),class: "btn btn-primary" %>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="post-item-all">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>具材</th>
+                        <th>値段</th>
+                        <th>入手場所</th>
+                        <th>具材説明</th>
+                        <th>具材画像一覧</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <% @post_items.each do |post_item| %>
+                        <tr>
+                          <td><%= post_item.item %></td>
+                          <td><%= post_item.price %></td>
+                          <td><%= post_item.place %></td>
+                          <td><%= post_item.introduction %></td>
+                          <td>
+                            <% post_item.images.each do |images| %>
+                              <%= image_tag (images.url),width: '30px', height: '30px' %>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                  </table>
                 </div>
-                  <div class="post-tags">
-                    <p>タグ一覧</p>
-                    <% @post_tags.each do|post_tag| %>
-                      <%= post_tag.tag_name %>
-                    <% end %>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mymodel">
+            料理具材登録
+          </button>
+
+          <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">料理具材登録</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <%= form_with model: @post_item_new,url: public_profile_post_post_item_create_path(@profile.id, @post.id),local: true do |f| %>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <div class="m-2">
+                        <%= f.label '具材' %>
+                        <%= f.text_field :item %>
+                      </div>
+                      <div class="m-2">
+                        <%= f.label '値段' %>
+                        <%= f.text_field :price %>
+                      </div>
+                      <div class="m-2">
+                        <%= f.label '入手場所' %>
+                        <%= f.text_field :place %>
+                      </div>
+                      <div class="m-2">
+                        <%= f.label '具材説明説明' %>
+                        <%= f.text_area :introduction, class: "padding:20px;" %>
+                      </div>
+                      <div class="m-2">
+                        <%= f.label '具材画像' %>
+                        <%= f.file_field :images, multiple: true %>
+                      </div>
+                    </div>
+                     <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                      <%= f.submit '投稿する', class: "btn btn-primary" %>
+                    </div>
                   </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>

@@ -11,7 +11,7 @@ class Public::PostsController < ApplicationController
     @profile = Profile.find(params[:profile_id])
     @post = Post.new(posts_params)
     @post.profile_id = @profile.id
-   tag_list = params[:post][:tag_ids].split(',')
+    tag_list = params[:post][:tag_ids].split(',')
     @post.save
   if  @post.save_tag(tag_list)
     redirect_to   public_profile_posts_path(@profile)
@@ -20,7 +20,25 @@ class Public::PostsController < ApplicationController
   end
   end
 
+  def post_item_create
+    @post_item = PostItem.new(post_items_params)
+    @post = Post.find(params[:post_id])
+    @post_item.post_id  = @post.id
+  if  @post_item.save
+    redirect_to public_profile_post_path(params[:profile_id],@post.id)
+  end
+  end
+
+
   def show
+    @post_item_new = PostItem.new
+    @profile = Profile.find(params[:profile_id])
+    @post = Post.find(params[:id])
+    @post_tags = @post.tags
+    @post_items = @post.post_items
+  end
+
+  def edit
     @profile = Profile.find(params[:profile_id])
     @post = Post.find(params[:id])
     @post_tags = @post.tags
@@ -39,5 +57,9 @@ end
 
   def posts_params
     params.require(:post).permit(:title, :genre_name,{images: []},:price,:introduction)
+  end
+
+  def post_items_params
+    params.require(:post_item).permit(:item, :place,{images: []},:introduction,:price)
   end
 end

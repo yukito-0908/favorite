@@ -2,6 +2,13 @@
       <div class="row">
          <div class="col">
            <header class="d-flex">
+             <div class="tag-list">
+                <%  @tag_lists.each do |tag| %>
+                  <%=link_to tag.tag_name,public_tag_path(tag,tag_id: tag.id)  %>
+
+                  <%= "(#{tag.posts.count})" %>
+                <% end %>
+              </div>
                 <div class="tag-search">
                   <p>検索</p>
                   <%= form_with url: public_profile_search_posts_path(@profile.id), method: :get, local: true do |f| %>
