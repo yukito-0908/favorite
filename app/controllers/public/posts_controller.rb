@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
     @profile = Profile.find(params[:profile_id])
     @post = Post.new
     @tag_lists = Tag.all
-    @posts = Post.all.page(params[:page]).per(10)
+    @posts = @profile.posts.page(params[:page]).per(10)
   end
 
   def create
@@ -14,7 +14,7 @@ class Public::PostsController < ApplicationController
     tag_list = params[:post][:tag_ids].split(',')
     @post.save
   if  @post.save_tag(tag_list)
-    redirect_to   public_profile_posts_path(@profile)
+    redirect_to   public_profile_posts_path(@profile.id)
   else
     render index
   end
@@ -42,16 +42,43 @@ class Public::PostsController < ApplicationController
     @profile = Profile.find(params[:profile_id])
     @post = Post.find(params[:id])
     @post_tags = @post.tags
+    @tag_list = @post.tags.pluck(:tag_name).join(",")
+    @post_items = @post.post_items
   end
 
-def search
-  @profile = Profile.find(params[:profile_id])
-  @tag_lists = Tag.all  #
-  @post = Post.new
-  @posts = Post.search(params[:profile_id],params[:keyword]).page(params[:page]).per(10)
-  @keyword = params[:keyword]
-  render "index"
-end
+  def update
+    @profile = Profile.find(params[:profile_id])
+    @post = Post.find(params[:id])
+    tag_list = params[:post][:tag_ids].split(',')
+    if @post.update_attributes(posts_params)
+      @post.save_tags(tag_list)
+      flash[:success] = '投稿を編集しました‼'
+      redirect_to  public_profile_post_path(@profile.id,@post.id)
+    else
+    render 'edit'
+    end
+  end
+
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to public_profile_post_path(@profile.id,@post.id)
+  end
+
+
+
+  def post_item_destroy_path
+  end
+
+  def search
+    @profile = Profile.find(params[:profile_id])
+    @tag_lists = Tag.all  #
+    @post = Post.new
+    @posts = Post.search(params[:profile_id],params[:keyword]).page(params[:page]).per(10)
+    @keyword = params[:keyword]
+    render "index"
+  end
 
   protected
 

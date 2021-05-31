@@ -1,39 +1,39 @@
 <div class="container">
   <div class="row">
     <div class="col">
-        <div class="tag-all">
-           <table class= "table">
-               <h5>投稿一覧</h5>
-               <thead>
-                 <tr>
-                    <th>タイトル</th>
-                    <th>ジャンル名</th>
-                    <th>料理説明</th>
-                    <th>料理説明</th>
-                    <th>値段</th>
-                    <th>料理詳細</th>
-                 </tr>
-                </thead>
-                  <tbody>
-                    <% @posts.each do |post| %>
-                      <tr>
-                        <td><%= post.title %></td>
-                        <td><%= post.genre_name %></td>
-                        <td><%= post.price %></td>
-                        <td><%= post.introduction %></td>
-                        <td>
-                          <% post.images.each do |post| %>
-                            <%= image_tag (post.url),width: '30px', height: '30px' %>
-                          <% end %>
-                        </td>
-                        <td>
-                          <%= link_to '料理詳細へ', public_profile_post_path(post.profile_id,post.id) ,class: "btn btn-success" %>
-                        </td>
-                      </tr>
-                     <% end %>
-                  </tbody>
-            </table>
-        </div>
+      <div class="tag-all">
+        <table class= "table">
+          <h5>投稿一覧</h5>
+          <thead>
+            <tr>
+              <th>タイトル</th>
+              <th>ジャンル名</th>
+              <th>料理説明</th>
+              <th>料理説明</th>
+              <th>値段</th>
+              <th>料理詳細</th>
+           </tr>
+          </thead>
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr>
+                <td><%= post.title %></td>
+                <td><%= post.genre_name %></td>
+                <td><%= post.price %></td>
+                <td><%= post.introduction %></td>
+                <td>
+                  <% post.images.each do |post| %>
+                    <%= image_tag (post.url),width: '30px', height: '30px' %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to '料理詳細へ', public_profile_post_path(post.profile_id,post.id) ,class: "btn btn-success" %>
+                </td>
+              </tr>
+             <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

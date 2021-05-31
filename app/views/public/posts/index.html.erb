@@ -1,112 +1,104 @@
 <div class="container mt-5">
-      <div class="row">
-         <div class="col">
-           <header class="d-flex">
-             <div class="tag-list">
-                <%  @tag_lists.each do |tag| %>
-                  <%=link_to tag.tag_name,public_tag_path(tag,tag_id: tag.id)  %>
-
-                  <%= "(#{tag.posts.count})" %>
-                <% end %>
-              </div>
-                <div class="tag-search">
-                  <p>検索</p>
-                  <%= form_with url: public_profile_search_posts_path(@profile.id), method: :get, local: true do |f| %>
-                    <%= f.text_field :keyword, value: @keyword %>
-                    <%= f.submit "検索" %>
+  <div class="row">
+    <div class="col">
+      <header class="d-flex">
+        <div class="tag-list">
+          <%  @tag_lists.each do |tag| %>
+            <%=link_to tag.tag_name,public_tag_path(tag,tag_id: tag.id)  %>
+            <%= "(#{tag.posts.count})" %>
+          <% end %>
+        </div>
+        <div class="tag-search">
+          <p>検索</p>
+          <%= form_with url: public_profile_search_posts_path(@profile.id), method: :get, local: true do |f| %>
+            <%= f.text_field :keyword, value: @keyword %>
+            <%= f.submit "検索" %>
+          <% end %>
+        </div>
+      </header>
+      <table class= "table">
+        <h5>投稿一覧</h5>
+         <thead>
+           <tr>
+              <th>タイトル</th>
+              <th>ジャンル名</th>
+              <th>料理説明</th>
+              <th>料理説明</th>
+              <th>値段</th>
+              <th>料理詳細</th>
+           </tr>
+          </thead>
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr>
+                <td><%= post.title %></td>
+                <td><%= post.genre_name %></td>
+                <td><%= post.price %></td>
+                <td><%= post.introduction %></td>
+                <td>
+                  <% post.images.each do |post| %>
+                    <%= image_tag (post.url),width: '30px', height: '30px' %>
                   <% end %>
-                </div>
-            </header>
-           <table class= "table">
-               <h5>投稿一覧</h5>
-               <thead>
-                 <tr>
-                    <th>タイトル</th>
-                    <th>ジャンル名</th>
-                    <th>料理説明</th>
-                    <th>料理説明</th>
-                    <th>値段</th>
-                    <th>料理詳細</th>
-                 </tr>
-                </thead>
-                  <tbody>
-                    <% @posts.each do |post| %>
-                      <tr>
-                        <td><%= post.title %></td>
-                        <td><%= post.genre_name %></td>
-                        <td><%= post.price %></td>
-                        <td><%= post.introduction %></td>
-                        <td>
-                          <% post.images.each do |post| %>
-                            <%= image_tag (post.url),width: '30px', height: '30px' %>
-                          <% end %>
-                        </td>
-                        <td>
-                          <%= link_to '料理詳細へ', public_profile_post_path(@profile.id,post.id) ,class: "btn btn-success" %>
-                        </td>
-                      </tr>
-                     <% end %>
-                  </tbody>
-            </table>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            新規投稿
-          </button>
-          <%= paginate @posts %>
-       </div>
-    </div>
+                </td>
+                <td>
+                  <%= link_to '料理詳細へ', public_profile_post_path(@profile.id,post.id) ,class: "btn btn-success" %>
+                </td>
+              </tr>
+             <% end %>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          新規投稿
+        </button>
+        <%= paginate @posts %>
+     </div>
   </div>
-
-
-
-
-
-
-
-
+</div>
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">新規投稿</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <%= form_for @post,url: public_profile_posts_path(@profile),local: true do |f| %>
-                <div class="modal-body">
-                    <div class="form-group">
-                      <div class="m-2">
-                        <%= f.label 'タイトル' %>
-                        <%= f.text_field :title %>
-                      </div>
-                        <div class="m-2">
-                          <%= f.label 'ジャンル' %>
-                          <%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %>
-                        </div>
-                          <div class="m-2">
-                            <%= f.label '値段' %>
-                            <%= f.text_field :price %>
-                          </div>
-                            <div class="m-2">
-                              <%= f.label '料理説明' %>
-                              <%=f.text_area :introduction, class: "padding:20px;" %>
-                            </div>
-                      <div class="m-2">
-                        <%= f.label '料理画像' %>
-                        <%= f.file_field :images, multiple: true %>
-                      </div>
-                        <%= f.text_field :tag_ids, class: "form-control", id:'tag_ids',\
-                        placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
-
-                    </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                  <%= f.submit '投稿する', class: "btn btn-primary" %>
-                </div>
-              <% end %>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">新規投稿</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for @post,url: public_profile_posts_path(@profile),local: true do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="m-2">
+              <%= f.label 'タイトル' %>
+              <%= f.text_field :title %>
+            </div>
+            <div class="m-2">
+              <%= f.label 'ジャンル' %>
+              <%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %>
+            </div>
+            <div class="m-2">
+              <%= f.label '値段' %>
+              <%= f.text_field :price %>
+            </div>
+            <div class="m-2">
+              <%= f.label '料理説明' %>
+              <%=f.text_area :introduction, class: "padding:20px;" %>
+            </div>
+            <div class="m-2">
+              <%= f.label '料理画像' %>
+              <%= f.file_field :images, multiple: true %>
+            </div>
+            <div class="m-2">
+              <%= f.text_field :tag_ids, class: "form-control", id:'tag_ids',\
+              placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <%= f.submit '投稿する', class: "btn btn-primary" %>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
