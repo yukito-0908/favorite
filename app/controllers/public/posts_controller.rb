@@ -36,6 +36,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post_tags = @post.tags
     @post_items = @post.post_items
+    @likes = @profile.likes
   end
 
   def edit

@@ -15,13 +15,11 @@ namespace :public, path: "" do
       delete 'post_item_destroy'
       post 'post_item_create'
       resources :post_items, only: [:destroy]
+      resources :likes, only: [:create, :destroy]
     end
     get 'search_posts', to: 'posts#search'
   end
-    resources :tags do
+    resources :tags, only: [:show]
   end
-
-end
-
   devise_for :admins
 end

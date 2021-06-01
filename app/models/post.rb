@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   has_many :post_items
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
+  has_many :likes,  dependent: :destroy
   accepts_nested_attributes_for :post_items
 
 
@@ -20,6 +21,11 @@ class Post < ApplicationRecord
       self.tags << post_tag
     end
   end
+
+
+def liked_by?(profile)
+  likes.where(profile_id: profile_id).exists?
+end
 
 
 def self.search(profile_id,keyword)
