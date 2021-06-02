@@ -2,52 +2,64 @@
   <div class="row">
     <div class="col">
       <div class="profile">
-          <div class="profile-title">
-             <h2>プロフィール</h2>
-          </div>
-          <div class="profile-all d-flex">
-            <div class="profile-list d-flex">
-                  <div class="profile-image">
-                    <%= image_tag attachment_url(@profile, :image, :fill, 250, 250, format: "user.jpeg") %>
-                  </div>
-                    <div class="profile-path m-4">
-                      <div class="profile-item d-flex">
-                        <div class="profile-name m-4">
-                          <p>name</p>
-                          <div><%= @profile.name %></div>
-                        </div>
-                          <div class="profile-instagram_id m-4">
-                            <p>instagram_id</p>
-                            <div><%= @profile.instagram_id %></div>
-                          </div>
-                      </div>
-                        <div class="introduction m-4">
-                          <p><%= @profile.introduction %></p>
-                        </div>
-                    </div>
-              </div>
-              
-              <% if @profile.current_user?(current_user) %>
-                <div class="profile-right">
-                  <div class="profile-follow_relationships">
-
-                  </div>
-                    <div class="profile-edit m-2">
-                      <%= link_to "プロフィールを編集する",  edit_public_profile_path(@profile), class: "btn btn-success" %>
-                    </div>
-                      <div class="profile-new m-2">
-                        <%= link_to "プロフィールを作成する",   new_public_profile_path, class: "btn btn-primary" %>
-                      </div>
-                        <div class="profile-chenge">
-                          <%= link_to 'プロフィールを切り替える', public_profiles_path, class: "btn btn-info" %>
-                        </div>
-                           <div class="profile-post">
-                            <%= link_to '新規投稿',   public_profile_posts_path(@profile), class: "btn btn-secondary" %>
-                          </div>
+        <div class="profile-title">
+          <h2>プロフィール</h2>
+        </div>
+        <div class="profile-all d-flex">
+          <div class="profile-list d-flex">
+            <div class="profile-image">
+              <%= image_tag attachment_url(@profile, :image, :fill, 250, 250, format: "user.jpeg") %>
+            </div>
+            <div class="profile-path m-4">
+              <div class="profile-item d-flex">
+                <div class="profile-name m-4">
+                  <p>name</p>
+                  <div><%= @profile.name %></div>
                 </div>
-                <% end %>
+                <div class="profile-instagram_id m-4">
+                  <p>instagram_id</p>
+                  <div><%= @profile.instagram_id %></div>
+                </div>
+              </div>
+              <div class="introduction m-4">
+                <p><%= @profile.introduction %></p>
+              </div>
+            </div>
+          </div>
+          <div class="profile-post">
+            <% @posts.each do |post| %>
+              <%= post.title %>
+              <div class="swiper-container">
+                  <div class= "swiper-wrapper img-index">
+                    <% post.images.each do |image| %>
+                        <%= image_tag (image.url), class: "swiper-slide index-img" %>
+                    <% end %>
+                  </div>
+                  <div class="swiper-button-prev swiper-button-black"></div>
+                  <div class="swiper-button-next swiper-button-black"></div>
+                  <div class="swiper-pagination"></div>
+              </div>
+            <% end %>
+          </div>
+          <% if @profile.user_id == current_user.id %>
+          <div class="profile-right">
+            <div class="profile-edit m-2">
+              <%= link_to "プロフィールを編集する",  edit_public_profile_path(@profile), class: "btn btn-success" %>
+            </div>
+            <div class="profile-new m-2">
+              <%= link_to "プロフィールを作成する",   new_public_profile_path, class: "btn btn-primary" %>
+            </div>
+            <div class="profile-chenge">
+              <%= link_to 'プロフィールを切り替える', public_profiles_path, class: "btn btn-info" %>
+            </div>
+             <div class="profile-post">
+              <%= link_to '新規投稿',   public_profile_posts_path(@profile), class: "btn btn-secondary" %>
+            </div>
+          <% else %>
+          <% end %>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>

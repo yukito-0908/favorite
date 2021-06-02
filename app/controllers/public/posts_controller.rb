@@ -13,7 +13,7 @@ class Public::PostsController < ApplicationController
     @post.profile_id = @profile.id
     tag_list = params[:post][:tag_ids].split(',')
     @post.save
-  if  @post.save_tag(tag_list)
+  if  @post.save_tags(tag_list)
     redirect_to   public_profile_posts_path(@profile.id)
   else
     render index
@@ -36,7 +36,9 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post_tags = @post.tags
     @post_items = @post.post_items
-    @likes = @profile.likes
+    @likes = @post.likes
+    @comments = @post.comments  #投稿詳細に関連付けてあるコメントを全取得
+    @comment = @profile.comments.new  #投稿詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
   end
 
   def edit

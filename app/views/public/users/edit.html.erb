@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="user-title">
+        <%= form_with model: @user, url: public_user_path(@user.id), local: :true do |f| %>
+          <div class="name">
+            <div class="first_name">
+              <p>姓</p>
+              <%= f.text_field :first_name %>
+            </div>
+            <div class="last_name">
+              <p>名</p>
+              <%= f.text_field :last_name %>
+            </div>
+          </div>
+          <div class="name-kana">
+            <div class="first_name_kana">
+              <p>姓(カナ)</p>
+              <%= f.text_field :first_name_kana %>
+            </div>
+            <div class="last_name_kana">
+              <p>名(カナ)</p>
+              <%= f.text_field :last_name_kana %>
+            </div>
+          </div>
+          <div class="phone_number">
+            <p>電話番号</p>
+            <%= f.text_field :phone_number %>
+          </div>
+          <div class="image">
+            <p>ユーザー画像</p>
+            <%= f.attachment_field :image %>
+          </div>
+          <div class="submit">
+            <%= f.submit '編集を保存' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

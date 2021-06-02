@@ -13,7 +13,8 @@ class Public::ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-    @profiles = Profile.all
+    @posts = @profile.posts.left_joins(:likes).group(:id).order('count(likes.id) desc')
+    @profiles = current_user.profiles
   end
 
   def edit

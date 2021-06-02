@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="following-all">
+        <% if @users.exists? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ユーザーname</th>
+              <th>プロフィール数</th>
+              <th>ユーザー詳細</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+            <tr>
+              <td><%= user.first_name + user.last_name %></td>
+              <td><%= user.profiles.count %></td>
+              <td><%=link_to '詳細へ',  public_user_path(@user.id) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% else %>
+          <p>ユーザーはいません</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

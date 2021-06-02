@@ -14,7 +14,7 @@
               <p><%= @post.genre_name %></p>
             </div>
             <div class="post-price">
-              <p>ジャンル</p>
+              <p>値段</p>
               <p><%= @post.price %></p>
             </div>
             <div class="post-tags">
@@ -29,16 +29,18 @@
               <p>料理画像一覧</p>
             </div>
             <div class= "swiper-wrapper img-index">
-              <% @post.images.each do |image| %>
-                  <%= image_tag (image.url), class: "swiper-slide index-img" %>
-              <% end %>
+              <div class= "swiper-wrapper img-index">
+                <% @post.images.each do |image| %>
+                    <%= image_tag (image.url), class: "swiper-slide index-img" %>
+                <% end %>
+              </div>
+              <div class="swiper-button-prev swiper-button-black"></div>
+              <div class="swiper-button-next swiper-button-black"></div>
+              <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-button-prev swiper-button-black"></div>
-            <div class="swiper-button-next swiper-button-black"></div>
-            <div class="swiper-pagination"></div>
           </div>
-          <h3>いいね件数: <%= @post.likes.count %></h3>
-          <% if @profile.id == @post.profile_id %>
+          <div class="comment-all">
+            <h3>いいね件数: <%= @post.likes.count %></h3>
             <% if @profile.already_liked?(@post) %>
               <%= link_to public_profile_post_like_path(@profile.id,@post.id), method: :delete do %>
               ♡
@@ -52,8 +54,27 @@
             <% @likes.each do |like| %>
               <li><%= like.profile.name %></li>
             <% end %>
-          <% else %>
-          <% end %>
+          </div>
+          <div class="comment">
+            <div class="comment-count">
+              <p>コメント数<%= @post.comments.count %></p>
+            </div>
+              <div class="comment-list">
+                <% @comments.each do |comment| %>
+                  <%= attachment_image_tag comment.profile, :image, format: 'jpeg', size: "40x40" %>
+                  <%= comment.profile.name %>
+                  <%= comment.comment_content %>
+                <% end %>
+              </div>
+              <div class="comment-item">
+                <%= form_with model: @comment,url: public_profile_post_comments_path(@profile.id, @post.id), local: true do |f| %>
+                  <%= f.text_area :comment_content %>
+                  <%= f.hidden_field :post_id, value: @post.id %>
+                  <%= f.hidden_field :profile_id, value: @profile.id %>
+                  <%= f.submit 'コメントする' %>
+                <% end %>
+              </div>
+          </div>
           <div class="post-edit">
             <%= link_to '編集する', edit_public_profile_post_path(@profile.id,@post),class: "btn btn-primary" %>
             <%= link_to '一覧に戻る',  public_profile_posts_path(@profile.id), class: "btn btn-success" %>
@@ -95,55 +116,49 @@
 
 
 
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mymodel">
-            料理具材登録
-          </button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mymodel">
+  料理具材登録
+</button>
 
-          <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">料理具材登録</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <%= form_with model: @post_item_new,url: public_profile_post_post_item_create_path(@profile.id, @post.id),local: true do |f| %>
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <div class="m-2">
-                        <%= f.label '具材' %>
-                        <%= f.text_field :item %>
-                      </div>
-                      <div class="m-2">
-                        <%= f.label '値段' %>
-                        <%= f.text_field :price %>
-                      </div>
-                      <div class="m-2">
-                        <%= f.label '入手場所' %>
-                        <%= f.text_field :place %>
-                      </div>
-                      <div class="m-2">
-                        <%= f.label '具材説明説明' %>
-                        <%= f.text_area :introduction, class: "padding:20px;" %>
-                      </div>
-                      <div class="m-2">
-                        <%= f.label '具材画像' %>
-                        <%= f.file_field :images, multiple: true %>
-                      </div>
-                    </div>
-                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                      <%= f.submit '投稿する', class: "btn btn-primary" %>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
+<div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">料理具材登録</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_with model: @post_item_new,url: public_profile_post_post_item_create_path(@profile.id, @post.id),local: true do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="m-2">
+              <%= f.label '具材' %>
+              <%= f.text_field :item %>
+            </div>
+            <div class="m-2">
+              <%= f.label '値段' %>
+              <%= f.text_field :price %>
+            </div>
+            <div class="m-2">
+              <%= f.label '入手場所' %>
+              <%= f.text_field :place %>
+            </div>
+            <div class="m-2">
+              <%= f.label '具材説明説明' %>
+              <%= f.text_area :introduction, class: "padding:20px;" %>
+            </div>
+            <div class="m-2">
+              <%= f.label '具材画像' %>
+              <%= f.file_field :images, multiple: true %>
             </div>
           </div>
-
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+            <%= f.submit '投稿する', class: "btn btn-primary" %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

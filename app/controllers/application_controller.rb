@@ -7,23 +7,23 @@ def after_sign_in_path_for(resource)
   when User
       public_profiles_mypage_path
   when Admin
-    admin_root_path
+    admin_root_pathz
   end
 end
 
 
   def after_sign_out_path_for(resource_or_scope)
     if resource_or_scope == :admin_admin_user
-      new_admin_admin_user_session_path
+      new_admin_user_registaration_path
     else
-      new_user_session_path
+      new_user_registration_path
     end
   end
 
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :phone_number, :is_active])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :phone_number, :is_active ,:image])
   end
 
 end

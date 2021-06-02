@@ -42,7 +42,7 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to '料理詳細へ', public_profile_post_path(@profile.id,post.id) ,class: "btn btn-success" %>
+                  <%= link_to '料理詳細へ', public_profile_post_path(@profile.id,post.id) ,'data-turbolinks': false,　class: "btn btn-success" %>
                 </td>
               </tr>
              <% end %>

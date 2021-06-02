@@ -1,0 +1,39 @@
+<div class="left-button">
+  <%= link_to "ユーザー一覧に戻る",public_users_path,class:"edit-link" %>
+</div>
+<h4 class="rooms-title">気になる同士</h4>
+<% @entries.each do |e| %>
+  <div class="user-name">
+  <strong>
+    <%#=# image_tag e.user.avatar, class:"user-image" %>
+      <a class="rooms-user-link" href="/users/<%= e.user.id %>">
+        <%= e.user.full_name %>さん
+      </a>
+  </strong>
+  </div>
+<% end %>
+<hr>
+<div class="chats">
+  <div class="chat">
+    <% if @messages.present? %>
+      <% @messages.each do |m| %>
+          <div class="balloon_r" style="margin: 30px 0; display:flex; justify-content: flex-start; align-items: flex-start;">
+          <div class="faceicon">
+            <%#= attachment_image_tag , :image %>
+          </div>
+          <div class="says">
+            <h5><%= m.message %></h5><br>
+            <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="posts">
+    <%= form_with model: @message,url: public_messages_path,local: :true do |f| %>
+      <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+          <%= f.submit "投稿",class: 'form-submit'%>
+    <% end %>
+  </div>
+</div>

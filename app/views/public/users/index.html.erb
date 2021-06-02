@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="user-all">
+        <% @users.each do |user| %>
+          <% if user == current_user %>
+          <% else %>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ユーザーネーム</th>
+                  <th>プロフィール数</th>
+                  <th>お気に入り数</th>
+                  <th>フォロー数</th>
+                  <th>フォロワー数</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= user.first_name + user.last_name %></td>
+                  <td><%= user.profiles.count %></td>
+                  <td></td>
+                  <td>フォロー数: <%= user.followings.count %></td>
+                  <td>フォロワー数: <%= user.followers.count %></td>
+                  <td>
+                    <%= link_to 'ユーザー詳細へ',public_user_path(user.id), class: "btn btn-success" %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
