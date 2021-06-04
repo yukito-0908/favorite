@@ -10,7 +10,7 @@
         </div>
         <div class="tag-search">
           <p>検索</p>
-          <%= form_with url: public_profile_search_posts_path(@profile.id), method: :get, local: true do |f| %>
+          <%= form_with url:    public_user_search_posts_path(@user.id), method: :get, local: true do |f| %>
             <%= f.text_field :keyword, value: @keyword %>
             <%= f.submit "検索" %>
           <% end %>
@@ -42,7 +42,7 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to '料理詳細へ', public_profile_post_path(@profile.id,post.id) ,'data-turbolinks': false,　class: "btn btn-success" %>
+                  <%= link_to '料理詳細へ',  public_user_post_path(@user.id,post.id) ,'data-turbolinks': false,class: "btn btn-success" %>
                 </td>
               </tr>
              <% end %>
@@ -66,7 +66,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= form_for @post,url: public_profile_posts_path(@profile),local: true do |f| %>
+      <%= form_for @post,url:  public_user_posts_path(@user.id),local: true do |f| %>
         <div class="modal-body">
           <div class="form-group">
             <div class="m-2">

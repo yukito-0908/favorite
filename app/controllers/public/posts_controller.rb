@@ -1,20 +1,20 @@
 class Public::PostsController < ApplicationController
 
   def index
-    @profile = Profile.find(params[:profile_id])
+    @user = User.find(params[:user_id])
     @post = Post.new
     @tag_lists = Tag.all
-    @posts = @profile.posts.page(params[:page]).per(10)
+    @posts = @user.posts.page(params[:page]).per(10)
   end
 
   def create
-    @profile = Profile.find(params[:profile_id])
+    @user = User.find(params[:user_id])
     @post = Post.new(posts_params)
-    @post.profile_id = @profile.id
+    @post.user_id = @user.id
     tag_list = params[:post][:tag_ids].split(',')
-    @post.save
+    @post.save!
   if  @post.save_tags(tag_list)
-    redirect_to   public_profile_posts_path(@profile.id)
+    redirect_to public_user_posts_path(@user.id)
   else
     render index
   end
@@ -32,13 +32,13 @@ class Public::PostsController < ApplicationController
 
   def show
     @post_item_new = PostItem.new
-    @profile = Profile.find(params[:profile_id])
+    @user = User.find(params[:user_id])
     @post = Post.find(params[:id])
+    @comments = @post.comments.order(created_at: :desc)
     @post_tags = @post.tags
     @post_items = @post.post_items
     @likes = @post.likes
-    @comments = @post.comments  #投稿詳細に関連付けてあるコメントを全取得
-    @comment = @profile.comments.new  #投稿詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
+    @comment = Comment.new  #投稿詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
   end
 
   def edit
@@ -75,10 +75,10 @@ class Public::PostsController < ApplicationController
   end
 
   def search
-    @profile = Profile.find(params[:profile_id])
+    @profile = User.find(params[:user_id])
     @tag_lists = Tag.all  #
     @post = Post.new
-    @posts = Post.search(params[:profile_id],params[:keyword]).page(params[:page]).per(10)
+    @posts = Post.search(params[:user_id],params[:keyword]).page(params[:page]).per(10)
     @keyword = params[:keyword]
     render "index"
   end
@@ -86,7 +86,7 @@ class Public::PostsController < ApplicationController
   protected
 
   def posts_params
-    params.require(:post).permit(:title, :genre_name,{images: []},:price,:introduction)
+    params.require(:post).permit(:title, :genre_name,{images: []},:price,:introduction, :user_id)
   end
 
   def post_items_params

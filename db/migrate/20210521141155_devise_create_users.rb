@@ -12,6 +12,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :first_name_kana
       t.string :last_name_kana
       t.string :phone_number
+      t.string :instagram_id
+      t.text :introduction
       t.integer :is_active,  default: 0
       t.timestamps null: false
       t.datetime :remember_created_at

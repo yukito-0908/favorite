@@ -27,7 +27,6 @@
         <% unless @user.id == current_user.id %>
         <% if (current_user.following? @user) && (@user.following? current_user)  %>
         <% if @isRoom == true %>
-          <%= link_to 'チャットへ', public_room_path(@room.id), class:"btn btn-primary btn-lg" %>
         <% else %>
           <%= form_for @room, url:  public_rooms_path do |f| %>
             <%= fields_for @entry do |e| %>

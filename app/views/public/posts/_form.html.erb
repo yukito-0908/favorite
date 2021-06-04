@@ -1,0 +1,5 @@
+<%= form_with model: @comment, url:  public_user_post_comments_path(@user.id, @post.id),remote: true  do |f| %>
+    <%= f.text_area :comment_content, class: "input-mysize" %>
+
+    <%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+<% end %>

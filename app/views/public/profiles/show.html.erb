@@ -26,6 +26,53 @@
               </div>
             </div>
           </div>
+
+
+           <div class="profile-post">
+             <% @posts.each do |post|  %>
+            <%= post.title %>
+           <div class="container">
+            <div class="image-index">
+              <p>料理画像一覧</p>
+            </div>
+          <div class="profile-post">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <% @post.images.each_with_index  do |image, index| %>
+            <% if index == 0 %>
+              <div class="carousel-item active">
+                <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+              </div>
+            <% else %>
+              <div class="carousel-item">
+                <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+              </div>
+            <% end %>
+            <% end %>
+            </div>
+             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          </div>
+          </div>
+          </div>
+        <% end %>
+        </div>
+
+
+
+
+
           <div class="profile-post">
             <% @posts.each do |post| %>
               <%= post.title %>

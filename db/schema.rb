@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_124113) do
+ActiveRecord::Schema.define(version: 2021_06_03_224338) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,12 +26,12 @@ ActiveRecord::Schema.define(version: 2021_06_02_124113) do
 
   create_table "comments", force: :cascade do |t|
     t.text "comment_content"
-    t.integer "profile_id"
+    t.integer "user_id"
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["profile_id"], name: "index_comments_on_profile_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "entries", force: :cascade do |t|
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_124113) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "profile_id"
+    t.integer "user_id"
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -96,8 +96,9 @@ ActiveRecord::Schema.define(version: 2021_06_02_124113) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "profile_id"
+    t.integer "user_id"
     t.string "title"
+    t.string "tag"
     t.string "picture"
     t.text "introduction"
     t.json "images"
@@ -158,6 +159,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_124113) do
     t.string "first_name_kana"
     t.string "last_name_kana"
     t.string "phone_number"
+    t.string "instagram_id"
+    t.text "introduction"
     t.integer "is_active", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

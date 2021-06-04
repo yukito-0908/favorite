@@ -38,6 +38,7 @@ class Public::ProfilesController < ApplicationController
 
   def index
     @profiles = current_user.profiles
+     #@user = current_user
   end
 
   def update

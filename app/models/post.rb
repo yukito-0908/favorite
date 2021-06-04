@@ -1,11 +1,19 @@
 class Post < ApplicationRecord
-  belongs_to :profile
+  belongs_to :user
   has_many :post_items
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
   has_many :likes,  dependent: :destroy
   has_many :comments, dependent: :destroy
   accepts_nested_attributes_for :post_items
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followers, through: :reverse_of_relationships, source: :follower
+  # 被フォロー関係を通じて参照→followed_idをフォローしている人
+
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  # 【class_name: "Relationship"】は省略可能
+  has_many :followings, through: :relationships, source: :followed
+  # 与フォロー関係を通じて参照→follower_idをフォローしている人
 
 
   def save_tags(post_tags)

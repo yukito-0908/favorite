@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 def after_sign_in_path_for(resource)
   case resource
   when User
-      public_profiles_mypage_path
+      public_path
   when Admin
     admin_root_pathz
   end
@@ -23,7 +23,8 @@ end
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :phone_number, :is_active ,:image])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :phone_number, :is_active ,:image,:instagram_id,
+    :introduction])
   end
 
 end

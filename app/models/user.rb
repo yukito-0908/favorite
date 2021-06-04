@@ -1,9 +1,10 @@
 class User < ApplicationRecord
   enum is_active: { E: 0, F: 1, G: 2, H: 3 }
-  has_many :profiles, dependent: :destroy
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   attachment :image
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :reverse_of_relationships, source: :follower
@@ -14,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
+
 
   def follow(user_id)
     relationships.create(followed_id: user_id)
@@ -27,6 +29,14 @@ class User < ApplicationRecord
 
   def full_name
     first_name + last_name
+  end
+
+  def full_name_kana
+    first_name_kana + last_name_kana
+  end
+
+  def already_liked?(post)
+    self.likes.exists?(post_id: post.id)
   end
 
 end

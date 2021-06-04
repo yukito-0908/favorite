@@ -3,9 +3,16 @@ class Public::CommentsController < ApplicationController
   def create
     @profile = Profile.find(params[:profile_id])
     @post = Post.find(params[:post_id])
-    @comment = Comment.new(comments_params)
-    @comment.save
+    @comment = @post.comments.build(comments_params)
+    @comment.profile_id = @profile.id
+    @comment.save!
     redirect_to public_profile_post_path(@profile.id,@post.id)
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    render :index
   end
 
   protected

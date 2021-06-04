@@ -16,4 +16,10 @@ class Public::RoomsController < ApplicationController
       render :show
     end
   end
+
+  def index
+    @user = current_user
+    @entries = @user.entries
+  end
+
 end

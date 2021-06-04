@@ -5,6 +5,7 @@ class Public::UsersController < ApplicationController
   end
 
   def index
+    @user = current_user
     @users = User.all
   end
 
@@ -36,6 +37,10 @@ class Public::UsersController < ApplicationController
     @user = current_user
     @user.update(users_params)
     redirect_to public_user_path(@user.id)
+  end
+
+  def mypage
+    @user = current_user
   end
 
 

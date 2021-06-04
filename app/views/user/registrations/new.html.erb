@@ -19,6 +19,10 @@
                     <p>メイ　<%= f.text_field :last_name_kana %></p>
                   </div>
               </div>
+              <div class="user-image">
+                <p>ユーザー画像</p>
+                <%= f.attachment_field :image %>
+              </div>
               <div class="password d-flex">
                 <p>パスワード</p>
                 <p><%= f.password_field :password, autocomplete: "new-password" %></p>
@@ -32,8 +36,12 @@
                 <p><%= f.text_field :phone_number %></p>
               </div>
               <div class="users-image">
-                 <p>ユーザー画像</p>
-                <%= f.attachment_field :image %>
+                 <p>インスタグラムID</p>
+                 <p><%= f.text_field :instagram_id %></p>
+              </div>
+              <div class="user-introduction">
+                <p>自己紹介</p>
+                <p><%= f.text_area :introduction %></p>
               </div>
               <div class="actions text-center">
                 <%= f.submit "新規登録",class: "btn btn-success" %>

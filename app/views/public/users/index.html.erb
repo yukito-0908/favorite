@@ -2,35 +2,34 @@
   <div class="row">
     <div class="col">
       <div class="user-all">
-        <% @users.each do |user| %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ユーザーネーム</th>
+              <th>ユーザー画像</th>
+              <th>プロフィール数</th>
+              <th>フォロー数</th>
+              <th>フォロワー数</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
           <% if user == current_user %>
           <% else %>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>ユーザーネーム</th>
-                  <th>プロフィール数</th>
-                  <th>お気に入り数</th>
-                  <th>フォロー数</th>
-                  <th>フォロワー数</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><%= user.first_name + user.last_name %></td>
-                  <td><%= user.profiles.count %></td>
-                  <td></td>
-                  <td>フォロー数: <%= user.followings.count %></td>
-                  <td>フォロワー数: <%= user.followers.count %></td>
-                  <td>
-                    <%= link_to 'ユーザー詳細へ',public_user_path(user.id), class: "btn btn-success" %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          <% end %>
-        <% end %>
+            <tr>
+              <td><%= user.first_name + user.last_name %></td>
+              <td><%= attachment_image_tag user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
+              <td><%= user.profiles.count %></td>
+              <td><%= user.followings.count %></td>
+              <td><%= user.followers.count %></td>
+              <td>
+                <%= link_to 'ユーザー詳細へ',public_user_path(user.id), class: "btn btn-success" %>
+              </td>
+            </tr>
+             <% end %>
+              <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
