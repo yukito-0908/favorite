@@ -15,6 +15,7 @@
            </tr>
           </thead>
           <tbody>
+            <% if @post.present? %>
             <% @posts.each do |post| %>
               <tr>
                 <td><%= post.title %></td>
@@ -27,9 +28,11 @@
                   <% end %>
                 </td>
                 <td>
-                  <%= link_to '料理詳細へ', public_profile_post_path(post.profile_id,post.id) ,class: "btn btn-success" %>
+                    <%= link_to '料理詳細へ',  public_user_post_path(@user.id,post.id) ,'data-turbolinks': false,class: "btn btn-success" %>
                 </td>
               </tr>
+             <% end %>
+             <% else %>
              <% end %>
           </tbody>
         </table>

@@ -2,12 +2,9 @@
   <div class="row">
     <div class="col">
       <header class="d-flex">
-        <div class="tag-list">
-          <%  @tag_lists.each do |tag| %>
-            <%=link_to tag.tag_name,public_tag_path(tag,tag_id: tag.id)  %>
-            <%= "(#{tag.posts.count})" %>
-          <% end %>
-        </div>
+        <% @tags.each do |tag| %>
+        <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_users_tags_path(@user.id) %>
+        <% end %>
         <div class="tag-search">
           <p>検索</p>
           <%= form_with url:    public_user_search_posts_path(@user.id), method: :get, local: true do |f| %>
@@ -90,8 +87,8 @@
               <%= f.file_field :images, multiple: true %>
             </div>
             <div class="m-2">
-              <%= f.text_field :tag_ids, class: "form-control", id:'tag_ids',\
-              placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+              <%= f.label :tag_list %>
+              <%= f.text_field :tag_list, value: @post.tag_list.join(',') %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>

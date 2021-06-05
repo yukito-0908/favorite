@@ -13,7 +13,6 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_followers = @user.followings
     @user_following = @user.followers
-    @profile = @user.profiles
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)
     unless @user.id == current_user.id

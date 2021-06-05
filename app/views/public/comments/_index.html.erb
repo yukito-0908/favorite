@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="comments">
+        <h6 class="more my-4 ml-2" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">全て見る</h6>
+        <div class="comment-count d-flex m-2  border-bottom">
+          <p>コメント数</p>
+          <div class="text-success ml-4"><%= @comments.count%></div>
+        </div>
+        <% @comments.first(5).each do |comment| %>
+          <% unless comment.id.nil? %>
+            <div class="comment-container m-2 border-bottom">
+              <div class="comment-box">
+                <div class="comment-item d-flex justify-content-between">
+                  <div class="comment-avatar d-flex">
+                    <div><%= attachment_image_tag comment.user, :image, fallback: "no_image.jpg", class:"comment-image", size: "40x40" %></div>
+                    <p class="m-3"><%= link_to "@#{comment.user.full_name}", public_path(comment.user.id) %></p>
+                  </div>
+                  <div class="comment-date pull-right">
+                    <p class="mt-3 ml-3"><%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %></p>
+                  </div>
+                </div>
+                <div class="comment-entry my-3">
+                  <%= comment.comment_content %>
+                  <% if comment.user_id == current_user.id %>
+                    <%= link_to public_user_post_comment_path(comment.user.id, comment.post_id, comment.id), method: :delete, remote: true, class: "comment_destroy" do %>
+                      <i class="fas fa-trash ml-3" style="color: red;"></i>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+
+            </div>
+          <% end %>
+        <% end %>
+
+        <div class="collapse m-2" id="collapseExample">
+          <% @comments.offset(5).each do |comment| %>
+            <% unless comment.id.nil? %>
+              <div class="comment-container m-2">
+                <div class="comment-box">
+                  <div class="comment-item d-flex">
+                    <div class="comment-avatar">
+                      <div><%= attachment_image_tag comment.user, :image, fallback: "no_image.jpg", class:"comment-image", size: "40x40" %></div>
+                    </div>
+                    <div class="comment-text mt-3 ml-3">
+                      <p><%= link_to "@#{comment.user.full_name}", public_path(comment.user.id) %></p>
+                    </div>
+                    <span class="comment-date pull-right mt-3 ml-3">
+                      <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                    </span>
+                  </div>
+                  <div class="comment-entry mb-4">
+                    <%= comment.comment_content %>
+                     <% if comment.user_id == current_user.id %>
+                        <%= link_to    public_user_post_comment_path(comment.user.id, comment.post_id, comment.id), method: :delete,data: {"turbolinks" => false}, remote: true, class: "comment_destroy" do %>
+                            <i class="fas fa-trash" style="color: red;"></i>
+                        <% end %>
+                    <% end %>
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

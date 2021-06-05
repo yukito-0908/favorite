@@ -1,18 +1,24 @@
 class Public::CommentsController < ApplicationController
 
   def create
-    @profile = Profile.find(params[:profile_id])
+    @user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comments_params)
-    @comment.profile_id = @profile.id
+    @comment.user_id = @user.id
     @comment.save!
-    redirect_to public_profile_post_path(@profile.id,@post.id)
+    @comments = @post.comments.order(created_at: :desc)
+    render :index
+
   end
 
   def destroy
+    @user = User.find(params[:user_id])
+    @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
     @comment.destroy
+    @comments = @post.comments.order(created_at: :desc)
     render :index
+
   end
 
   protected

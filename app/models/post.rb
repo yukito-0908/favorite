@@ -1,8 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :post_items
-  has_many :tag_maps, dependent: :destroy
-  has_many :tags, through: :tag_maps
+  acts_as_taggable   # acts_as_taggable_on :tags の省略
+# 参)複数設定も可能↓
+  acts_as_taggable_on :skills, :interests  # @post.skill_list とかが使えるようになる
   has_many :likes,  dependent: :destroy
   has_many :comments, dependent: :destroy
   accepts_nested_attributes_for :post_items
@@ -16,20 +17,7 @@ class Post < ApplicationRecord
   # 与フォロー関係を通じて参照→follower_idをフォローしている人
 
 
-  def save_tags(post_tags)
-    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
-    old_tags = current_tags - post_tags
-    new_tags = post_tags - current_tags
 
-    old_tags.each do |old_name|
-      self.tags.delete Tag.find_by(tag_name: old_name)
-    end
-
-    new_tags.each do |new_name|
-      post_tag = Tag.find_or_create_by(tag_name: new_name)
-      self.tags << post_tag
-    end
-  end
 
 
 def liked_by?(profile)

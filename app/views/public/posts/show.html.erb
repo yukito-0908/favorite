@@ -19,16 +19,14 @@
             </div>
             <div class="post-tags">
               <p>タグ一覧</p>
-              <% @post_tags.each do|post_tag| %>
-                <%= post_tag.tag_name %>
-              <% end %>
+
             </div>
           </div>
           <div class="container">
             <div class="image-index">
               <p>料理画像一覧</p>
             </div>
-          <div class="profile-post">
+          <div class="profile-post  w-50 mx-auto">
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -70,24 +68,27 @@
               ❤️
               <% end %>
             <% end %>
-            <h2>いいねしたユーザー</h2>
+            <h5>いいねしたユーザー</h5>
             <% @likes.each do |like| %>
-              <li><%= like.user.full_name %></li>
+              <p><%= like.user.full_name %></p>
             <% end %>
           </div>
-          <div class="comment">
-            <div id="comments_area">
-              <%= render partial: 'index', locals: { comments: @comments } %>
+        <div class="comment">
+            <div id="comments_area comments">
+              <%= render partial: 'public/comments/index', locals: { comments: @comment } %>
             </div>
             <% if user_signed_in? %>
-                <div class="comment-create">
-                    <h3 class="text-left">レビューを投稿する</h3>
-                        <%= render partial: 'form', locals: { comments: @comments } %>
-                </div>
+              <div class="comment-create">
+                <h3 class="text-left">レビューを投稿する</h3>
+                <%= render partial: 'public/comments/form', locals: { comment: @comment, post: @post} %>
+              </div>
             <% end %>
           </div>
           <div class="post-edit">
+              <% if @user == current_user %>
             <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post),class: "btn btn-primary" %>
+            <% else %>
+            <% end %>
             <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
           </div>
         </div>
@@ -100,6 +101,7 @@
                 <th>入手場所</th>
                 <th>具材説明</th>
                 <th>具材画像一覧</th>
+                <th>料理具材詳細へ</th>
               </tr>
             </thead>
             <tbody>
@@ -114,10 +116,18 @@
                     <%= image_tag (images.url),width: '30px', height: '30px' %>
                   <% end %>
                 </td>
+                <td><%= link_to '料理具材詳細へ',  public_user_post_post_items_path(@user.id,@post.id), class: "btn btn-primary" %></td>
               </tr>
               <% end %>
             </tbody>
           </table>
+          <div class="post_item-link">
+            <% if @user == current_user %>
+              <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post.id),class: "btn btn-primary" %>
+            <% else %>
+            <% end %>
+            <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
+          </div>
         </div>
       </div>
     </div>
@@ -125,11 +135,18 @@
 </div>
 
 
-
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mymodel">
-  料理具材登録
-</button>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <% if @user == current_user %>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mymodel">
+        料理具材登録
+      </button>
+      <% else %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -140,7 +157,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= form_with model: @post_item_new,url: public_profile_post_post_item_create_path(@profile.id, @post.id),local: true do |f| %>
+      <%= form_with model: @post_item_new,url: public_user_post_post_item_create_path(@user.id, @post.id),local: true do |f| %>
         <div class="modal-body">
           <div class="form-group">
             <div class="m-2">
@@ -156,7 +173,7 @@
               <%= f.text_field :place %>
             </div>
             <div class="m-2">
-              <%= f.label '具材説明説明' %>
+              <%= f.label '具材説明' %>
               <%= f.text_area :introduction, class: "padding:20px;" %>
             </div>
             <div class="m-2">

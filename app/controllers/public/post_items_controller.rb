@@ -3,14 +3,21 @@ class Public::PostItemsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
+    @post_items = @post.post_items
   end
 
   def destroy
-    @profile = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
     @post_item = PostItem.find(params[:id])
     @post_item.destroy
-    redirect_to  public_profile_post_path(@user.id,@post.id)
+    redirect_to  edit_public_user_post_path(@user.id,@post.id)
+  end
+
+  protected
+
+  def post_items_params
+    params.require(:post_item).permit()
   end
 
 end
