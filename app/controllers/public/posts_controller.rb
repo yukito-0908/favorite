@@ -3,11 +3,11 @@ class Public::PostsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @post = Post.new
-    @posts = @user.posts.page(params[:page]).per(10)
-    @tags = Post.tag_counts_on(:tags).order('count DESC')     # 全タグ(Postモデルからtagsカラムを降順で取得
-
-
-
+    @posts = @user.posts.page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順で取
+    @tags = @posts.tag_counts_on(:tags).most_used(20)    # タグ一覧表示
+    if params[:tag_name]
+      @posts = Post.tagged_with("#{params[:tag_name]}").page(params[:page]).per(10)
+    end
   end
 
   def create
@@ -34,7 +34,7 @@ class Public::PostsController < ApplicationController
   def post_tags
     @user = User.find(params[:user_id])
     @tags = Post.tag_counts_on(:tags).order('count DESC')     # 全タグ(Postモデルからtagsカラムを降順で取得)
-   @tag = params[:tag]   # タグ検索用
+    @tag = params[:tag]   # タグ検索用
     @post = Post.tagged_with(params[:tag])   # タグに紐付く投稿
   end
 
@@ -45,6 +45,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post_tags = @post.tags
     @post_items = @post.post_items
+    Like.new
     @likes = @post.likes
     @comment = Comment.new  #投稿詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
     @comments = @post.comments.order(created_at: :desc)
@@ -84,8 +85,8 @@ class Public::PostsController < ApplicationController
   end
 
   def search
+    @user = User.find(params[:user_id])
     @profile = User.find(params[:user_id])
-    @tag_lists = Tag.all  #
     @post = Post.new
     @posts = Post.search(params[:user_id],params[:keyword]).page(params[:page]).per(10)
     @keyword = params[:keyword]

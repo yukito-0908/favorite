@@ -19,7 +19,11 @@
             </div>
             <div class="post-tags">
               <p>タグ一覧</p>
-
+              <p>
+                <% @post.tags.each do |tag| %>
+                  <p><%= tag.name %></p>
+                <% end %>
+              </p>
             </div>
           </div>
           <div class="container">
@@ -57,21 +61,8 @@
           </div>
           </div>
           </div>
-          <div class="comment-all">
-            <h3>いいね件数: <%= @post.likes.count %></h3>
-            <% if @user.already_liked?(@post) %>
-              <%= link_to  public_user_post_like_path(@user.id,@post.id), method: :delete do %>
-              ♡
-              <% end %>
-            <% else %>
-              <%= link_to  public_user_post_likes_path(@user.id,@post.id), method: :post do %>
-              ❤️
-              <% end %>
-            <% end %>
-            <h5>いいねしたユーザー</h5>
-            <% @likes.each do |like| %>
-              <p><%= like.user.full_name %></p>
-            <% end %>
+           <div id="likes_buttons">
+             <%= render partial: 'public/likes/like', locals: { likes: @like } %>
           </div>
         <div class="comment">
             <div id="comments_area comments">

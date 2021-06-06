@@ -2,14 +2,18 @@
   <div class="row">
     <div class="col">
       <header class="d-flex">
-        <% @tags.each do |tag| %>
-        <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_users_tags_path(@user.id) %>
-        <% end %>
         <div class="tag-search">
           <p>検索</p>
           <%= form_with url:    public_user_search_posts_path(@user.id), method: :get, local: true do |f| %>
             <%= f.text_field :keyword, value: @keyword %>
             <%= f.submit "検索" %>
+          <% end %>
+        </div>
+        <div class="tag-title">
+          <% @tags.each do |tag| %>
+          <span class="badge  badge-primary mr-1 p-2">
+            <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white" %>
+          </span>
           <% end %>
         </div>
       </header>
@@ -20,10 +24,11 @@
               <th>タイトル</th>
               <th>ジャンル名</th>
               <th>料理説明</th>
-              <th>料理説明</th>
+              <th>料理画像</th>
               <th>値段</th>
-              <th>料理詳細</th>
               <th>いいね数</th>
+              <th>タグ</th>
+              <th>料理詳細</th>
            </tr>
           </thead>
           <tbody>
@@ -38,6 +43,8 @@
                     <%= image_tag (post.url),width: '30px', height: '30px' %>
                   <% end %>
                 </td>
+                <td><%= post.likes.count %></td>
+                <td><%= post.tag_list %></td>
                 <td>
                   <%= link_to '料理詳細へ',  public_user_post_path(@user.id,post.id) ,'data-turbolinks': false,class: "btn btn-success" %>
                 </td>
@@ -88,7 +95,7 @@
             </div>
             <div class="m-2">
               <%= f.label :tag_list %>
-              <%= f.text_field :tag_list, value: @post.tag_list.join(',') %>
+              <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control" %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>

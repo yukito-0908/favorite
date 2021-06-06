@@ -1,0 +1,16 @@
+ <div class="comment-all">
+  <h3>いいね件数: <%= @post.likes.count %></h3>
+  <% if @user.already_liked?(@post) %>
+    <%= link_to  public_user_post_like_path(@user.id,post_id: @post.id, id: @post.likes[0].id), method: :delete, remote: true do %>
+    ♡
+    <% end %>
+  <% else %>
+    <%= link_to  public_user_post_likes_path(@user.id,@post.id), method: :post, remote: true do %>
+    ❤️
+    <% end %>
+  <% end %>
+  <h5>いいねしたユーザー</h5>
+  <% @likes.each do |like| %>
+    <p><%= like.user.full_name %></p>
+  <% end %>
+</div>
