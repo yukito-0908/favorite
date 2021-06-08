@@ -5,10 +5,12 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comments_params)
     @comment.user_id = @user.id
+    @comment_post = @comment.post
     @comment.save!
-    @comments = @post.comments.order(created_at: :desc)
+    @post.create_notification_comment!(current_user, @comment.id)
+      # ここまで
+    respond_to :js
     render :index
-
   end
 
   def destroy

@@ -2,85 +2,27 @@
   <div class="row">
     <div class="col">
       <div class="post">
-        <div class="post-items">
+        <div class="post-show">
+          <h5>料理詳細</h5>
           <div class="post-title">
-            <h5>料理詳細</h5>
-            <div class="post-title">
-              <p>タイトル</p>
-              <p><%= @post.title %></p>
-            </div>
-            <div class="post-genre">
-              <p>ジャンル</p>
-              <p><%= @post.genre_name %></p>
-            </div>
-            <div class="post-price">
-              <p>値段</p>
-              <p><%= @post.price %></p>
-            </div>
-            <div class="post-tags">
-              <p>タグ一覧</p>
-              <p>
-                <% @post.tags.each do |tag| %>
-                  <p><%= tag.name %></p>
-                <% end %>
-              </p>
-            </div>
+            <p>タイトル</p>
+            <p><%= @post.title %></p>
           </div>
-          <div class="container">
-            <div class="image-index">
-              <p>料理画像一覧</p>
-            </div>
-          <div class="profile-post  w-50 mx-auto">
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <% @post.images.each_with_index  do |image, index| %>
-            <% if index == 0 %>
-              <div class="carousel-item active">
-                <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
-              </div>
-            <% else %>
-              <div class="carousel-item">
-                <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
-              </div>
-            <% end %>
-            <% end %>
-            </div>
-             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            <span class="sr-only">Next</span>
-          </a>
+          <div class="post-genre">
+            <p>ジャンル</p>
+            <p><%= @post.genre_name %></p>
           </div>
+          <div class="post-price">
+            <p>値段</p>
+            <p><%= @post.price %></p>
           </div>
-          </div>
-           <div id="likes_buttons">
-             <%= render partial: 'public/likes/like', locals: { likes: @like } %>
-          </div>
-        <div class="comment">
-            <div id="comments_area comments">
-              <%= render partial: 'public/comments/index', locals: { comments: @comment } %>
-            </div>
-            <% if user_signed_in? %>
-              <div class="comment-create">
-                <h3 class="text-left">レビューを投稿する</h3>
-                <%= render partial: 'public/comments/form', locals: { comment: @comment, post: @post} %>
-              </div>
-            <% end %>
-          </div>
-          <div class="post-edit">
-              <% if @user == current_user %>
-            <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post),class: "btn btn-primary" %>
-            <% else %>
-            <% end %>
-            <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
+          <div class="post-tags">
+            <p>タグ一覧</p>
+            <p>
+              <% @post.tags.each do |tag| %>
+                <p><%= tag.name %></p>
+              <% end %>
+            </p>
           </div>
         </div>
         <div class="post-item-all">
@@ -112,72 +54,66 @@
               <% end %>
             </tbody>
           </table>
-          <div class="post_item-link">
+          <div class="post-edit">
             <% if @user == current_user %>
-              <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post.id),class: "btn btn-primary" %>
+            <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post),class: "btn btn-primary" %>
             <% else %>
             <% end %>
             <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <% if @user == current_user %>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Mymodel">
-        料理具材登録
-      </button>
-      <% else %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">料理具材登録</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <%= form_with model: @post_item_new,url: public_user_post_post_item_create_path(@user.id, @post.id),local: true do |f| %>
-        <div class="modal-body">
-          <div class="form-group">
-            <div class="m-2">
-              <%= f.label '具材' %>
-              <%= f.text_field :item %>
-            </div>
-            <div class="m-2">
-              <%= f.label '値段' %>
-              <%= f.text_field :price %>
-            </div>
-            <div class="m-2">
-              <%= f.label '入手場所' %>
-              <%= f.text_field :place %>
-            </div>
-            <div class="m-2">
-              <%= f.label '具材説明' %>
-              <%= f.text_area :introduction, class: "padding:20px;" %>
-            </div>
-            <div class="m-2">
-              <%= f.label '具材画像' %>
-              <%= f.file_field :images, multiple: true %>
+        <div class="image">
+          <div class="image-index">
+            <p>料理画像一覧</p>
+          </div>
+          <div class="profile-post mx-auto">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner">
+                <% @post.images.each_with_index  do |image, index| %>
+                  <% if index == 0 %>
+                    <div class="carousel-item active">
+                      <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+                    </div>
+                  <% else %>
+                    <div class="carousel-item">
+                      <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="sr-only">Next</span>
+              </a>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-            <%= f.submit '投稿する', class: "btn btn-primary" %>
+          <div id="likes_buttons">
+            <%= render partial: 'public/likes/like', locals: { likes: @like } %>
           </div>
         </div>
-      <% end %>
+        <div class="comment">
+          <div id="comments_area comments">
+            <%= render partial: 'public/comments/index', locals: { comments: @comment } %>
+          </div>
+          <% if user_signed_in? %>
+            <div class="comment-create">
+              <h3 class="text-left">レビューを投稿する</h3>
+              <%= render partial: 'public/comments/form', locals: { comment: @comment, post: @post} %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+

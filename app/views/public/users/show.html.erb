@@ -37,13 +37,6 @@
         <% end %>
         <% end %>
       <% end %>
-        <div class="user-profile">
-          <% @user.profiles.each do |profile| %>
-            <div><%= profile.name %></div>
-            <div><%= attachment_image_tag profile, :image, format: 'jpeg', size: "100x100" %></div>
-            <div><%= link_to 'プロフィール詳細へ', public_profile_path(profile.id),'data-turbolinks': false %></div>
-          <% end %>
-        </div>
     </div>
   </div>
 </div>

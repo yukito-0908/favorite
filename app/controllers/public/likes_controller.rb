@@ -1,5 +1,9 @@
 class Public::LikesController < ApplicationController
 
+  def index
+    @user = User.find(params[:user_id])
+    @post = Post.find(params[:post_id])
+  end
 
   def destroy
     @user = User.find(params[:user_id])
@@ -9,13 +13,16 @@ class Public::LikesController < ApplicationController
     @likes = @post.likes
   end
 
-   def create
+  def create
     @user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
     @like = @user.likes.build(post_id: @post.id,user_id: @user.id)
     @like.save!
+    post = Post.find(params[:post_id])
+    post.create_notification_like!(current_user)
+    # ここまで
+    respond_to :js
     @likes = @post.likes
   end
-
 
 end

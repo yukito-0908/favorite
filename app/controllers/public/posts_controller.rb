@@ -86,10 +86,13 @@ class Public::PostsController < ApplicationController
 
   def search
     @user = User.find(params[:user_id])
-    @profile = User.find(params[:user_id])
-    @post = Post.new
-    @posts = Post.search(params[:user_id],params[:keyword]).page(params[:page]).per(10)
+    @posts =  Post.search(params[:user_id],params[:keyword]).page(params[:page]).per(10)
     @keyword = params[:keyword]
+    @tags = @posts.tag_counts_on(:tags).most_used(20)    # タグ一覧表示
+    @post = Post.new
+    if params[:tag_name]
+      @posts = Post.tagged_with("#{params[:tag_name]}").page(params[:page]).per(10)
+    end
     render "index"
   end
 
