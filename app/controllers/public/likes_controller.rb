@@ -18,8 +18,6 @@ class Public::LikesController < ApplicationController
     @post = Post.find(params[:post_id])
     @like = @user.likes.build(post_id: @post.id,user_id: @user.id)
     @like.save!
-    @post.create_notification_like!(current_user)
-    # ここまで
     @likes = @post.likes
   end
 

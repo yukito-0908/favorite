@@ -5,11 +5,8 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comments_params)
     @comment.user_id = @user.id
-    @comment_post = @comment.post
     @comment.save!
-    @post.create_notification_comment!(current_user, @comment.id)
-      # ここまで
-    respond_to :js
+      @comments = @post.comments.order(created_at: :desc)
     render :index
   end
 

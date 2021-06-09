@@ -1,31 +1,43 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col m-5">
       <div class="post">
-        <div class="post-show">
-          <h5>料理詳細</h5>
-          <div class="post-title">
-            <p>タイトル</p>
-            <p><%= @post.title %></p>
+        <h5 class="text-center m-4">料理詳細</h5>
+        <div class="post-top d-flex justify-content-between">
+          <div class="post-show">
+            <div class="post-title p-2">
+              <p class="font-weight-bold">タイトル</p>
+              <p class=" border-bottom  border-info"><%= @post.title %></p>
+            </div>
+            <div class="post-genre p-2">
+              <p class="font-weight-bold">ジャンル</p>
+              <p class="border-bottom border-info"><%= @post.genre_name %></p>
+            </div>
+            <div class="post-price p-2">
+              <p class="font-weight-bold">値段</p>
+              <p class="border-bottom border-info"><%= @post.price %></p>
+            </div>
+            <div class="post-tags p-2">
+              <p class="font-weight-bold">タグ一覧</p>
+              <div class="border-bottom border-info">
+                <% @post.tags.each do |tag| %>
+                  <p class="d-inline-block"><%= tag.name %></p>
+                <% end %>
+              </div>
+            </div>
           </div>
-          <div class="post-genre">
-            <p>ジャンル</p>
-            <p><%= @post.genre_name %></p>
-          </div>
-          <div class="post-price">
-            <p>値段</p>
-            <p><%= @post.price %></p>
-          </div>
-          <div class="post-tags">
-            <p>タグ一覧</p>
-            <p>
-              <% @post.tags.each do |tag| %>
-                <p><%= tag.name %></p>
-              <% end %>
-            </p>
+          <div class="likes_buttons">
+            <%= render partial: 'public/likes/like', locals: { likes: @like } %>
           </div>
         </div>
-        <div class="post-item-all">
+        <div class="post-edit text-right m-4">
+          <% if @user == current_user %>
+          <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post),class: "btn btn-primary" %>
+          <% else %>
+          <% end %>
+          <%= link_to '投稿一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
+        </div>
+        <div class="post-item-all m-4">
           <table class="table">
             <thead>
               <tr>
@@ -54,19 +66,9 @@
               <% end %>
             </tbody>
           </table>
-          <div class="post-edit">
-            <% if @user == current_user %>
-            <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post),class: "btn btn-primary" %>
-            <% else %>
-            <% end %>
-            <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
-          </div>
         </div>
         <div class="image">
-          <div class="image-index">
-            <p>料理画像一覧</p>
-          </div>
-          <div class="profile-post mx-auto">
+          <div class="profile-post mx-auto w-75">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -96,17 +98,14 @@
               </a>
             </div>
           </div>
-          <div id="likes_buttons">
-            <%= render partial: 'public/likes/like', locals: { likes: @like } %>
-          </div>
         </div>
         <div class="comment">
           <div id="comments_area comments">
             <%= render partial: 'public/comments/index', locals: { comments: @comment } %>
           </div>
           <% if user_signed_in? %>
-            <div class="comment-create">
-              <h3 class="text-left">レビューを投稿する</h3>
+            <div class="comment-create text-center m-3">
+              <h6 class="text">レビューを投稿する</h6>
               <%= render partial: 'public/comments/form', locals: { comment: @comment, post: @post} %>
             </div>
           <% end %>

@@ -1,4 +1,10 @@
-<%= form_for  @comment, url:  public_user_post_comments_path(@user.id,@post.id),data: {"turbolinks" => false}, remote: true do |f| %>
-    <%= f.text_area :comment_content, class: "input-mysize" %>
-    <%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
-<% end %>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <%= form_for  @comment, url:  public_user_post_comments_path(@user.id,@post.id),data: {"turbolinks" => false}, remote: true do |f| %>
+          <div class="form"><%= f.text_area :comment_content, class: "input-mysize" %></div>
+          <div class="submit"><%= f.submit "送信", class: "btn btn-outline-dark comment-submit" %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>

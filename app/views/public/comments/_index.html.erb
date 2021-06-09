@@ -7,7 +7,7 @@
           <p>コメント数</p>
           <div class="text-success ml-4"><%= @comments.count%></div>
         </div>
-        <% @comments.first(5).each do |comment| %>
+        <% @comments.first(3).each do |comment| %>
           <% unless comment.id.nil? %>
             <div class="comment-container  border-bottom">
               <div class="comment-box m-3">
@@ -34,7 +34,7 @@
         <% end %>
 
         <div class="collapse m-2" id="collapseExample">
-          <% @comments.offset(5).each do |comment| %>
+          <% @comments.offset(3).each do |comment| %>
             <% unless comment.id.nil? %>
              <div class="comment-container m-2 border-bottom">
               <div class="comment-box">

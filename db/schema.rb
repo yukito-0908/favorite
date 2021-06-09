@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_090500) do
+ActiveRecord::Schema.define(version: 2021_06_07_151623) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -67,21 +67,6 @@ ActiveRecord::Schema.define(version: 2021_06_08_090500) do
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.integer "visiter_id", null: false
-    t.integer "visited_id", null: false
-    t.integer "post_id"
-    t.integer "comment_id"
-    t.string "action", default: "", null: false
-    t.boolean "cheaked", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_notifications_on_comment_id"
-    t.index ["post_id"], name: "index_notifications_on_post_id"
-    t.index ["visited_id"], name: "index_notifications_on_visited_id"
-    t.index ["visiter_id"], name: "index_notifications_on_visiter_id"
   end
 
   create_table "post_images", force: :cascade do |t|

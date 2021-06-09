@@ -8,9 +8,8 @@ devise_for :users, controllers: {
 }
 
 namespace :public, path: "" do
-    resources :notifications, only: :index
-    get 'users/mypage/:id' => 'users#mypage'
-    resources :users, only: [:edit, :update ,:index , :show] do
+  get 'users/mypage/:id' => 'users#mypage'
+  resources :users, only: [:edit, :update ,:index , :show] do
     resources :posts, only: [:index,:create,:show,:edit,:update, :destroy] do
     delete 'post_item_destroy'
     post 'post_item_create'
@@ -18,8 +17,9 @@ namespace :public, path: "" do
     resources :likes, only: [:create, :destroy, :index]
     resources :comments, only: [:create, :destroy]
   end
-   get 'users/tags' => 'posts#post_tags'
+    get 'users/tags' => 'posts#post_tags'
     get 'search_posts', to: 'posts#search'
+    post 'search_posts', to: 'posts#search'
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
