@@ -30,6 +30,21 @@ class Public::UsersController < ApplicationController
     end
   end
 
+  def search_all
+    @user = current_user
+    @posts = Post.all.order("id DESC")
+    if params[:ranking] =="1"
+      @posts = Post.includes(:likes).sort {|a,b| b.likes.size <=> a.likes.size}
+    elsif params[:ranking] == "2"
+      @posts = Post.includes(:comments).sort {|a,b| b.comments.size <=> a.comments.size}
+    elsif params[:ranking] == "3"
+      @posts = Post.all.order(id: "DESC")
+    end
+  end
+
+
+
+
   def update
     @user = current_user
     @user.update(users_params)

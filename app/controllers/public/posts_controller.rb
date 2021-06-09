@@ -96,6 +96,8 @@ class Public::PostsController < ApplicationController
     render "index"
   end
 
+
+
   protected
 
   def posts_params

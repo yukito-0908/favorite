@@ -9,6 +9,8 @@ devise_for :users, controllers: {
 
 namespace :public, path: "" do
   get 'users/mypage/:id' => 'users#mypage'
+  get 'search_all' => 'users#search_all'
+  post 'search_all' => 'users#search_all'
   resources :users, only: [:edit, :update ,:index , :show] do
     resources :posts, only: [:index,:create,:show,:edit,:update, :destroy] do
     delete 'post_item_destroy'
@@ -27,7 +29,6 @@ namespace :public, path: "" do
   end
   resources :messages, only: [:create, :destroy]
   resources :rooms, only: [:create,:show, :index]
-  get '/profiles/mypage' => 'profiles#mypage'
   end
   devise_for :admins
 end
