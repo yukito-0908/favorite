@@ -8,7 +8,7 @@ devise_for :users, controllers: {
 }
 
 namespace :public, path: "" do
-  get 'users/mypage/:id' => 'users#mypage'
+  get 'users/mypage' => 'users#mypage'
   get 'search_all' => 'users#search_all'
   post 'search_all' => 'users#search_all'
   resources :users, only: [:edit, :update ,:index , :show] do

@@ -1,11 +1,10 @@
 class Public::UsersController < ApplicationController
 
   def edit
-    @user = current_user
+     @user = User.find(params[:id])
   end
 
   def index
-    @user = current_user
     @users = User.all
   end
 
@@ -46,7 +45,7 @@ class Public::UsersController < ApplicationController
 
 
   def update
-    @user = current_user
+    @user = User.find(params[:id])
     @user.update(users_params)
     redirect_to public_user_path(@user.id)
   end

@@ -14,7 +14,7 @@
                 <div class="comment-item">
                   <div class="comment-avatar d-flex">
                     <div><%= attachment_image_tag comment.user, :image, fallback: "no_image.jpg", class:"comment-image", size: "20x20" %></div>
-                    <p class="ml-3"><%= link_to "@#{comment.user.full_name}", public_path(comment.user.id) %></p>
+                    <p class="ml-3"><%= link_to "@#{comment.user.full_name}",  public_user_path(comment.user.id) %></p>
                   </div>
                 </div>
                 <div class="comment-entry my-3 d-flex">
@@ -41,7 +41,7 @@
                 <div class="comment-item">
                   <div class="comment-avatar d-flex">
                     <div><%= attachment_image_tag comment.user, :image, fallback: "no_image.jpg", class:"comment-image", size: "20x20" %></div>
-                    <p class="ml-3"><%= link_to "@#{comment.user.full_name}", public_path(comment.user.id) %></p>
+                    <p class="ml-3"><%= link_to "@#{comment.user.full_name}",  public_user_path(comment.user.id) %></p>
                   </div>
                 </div>
                 <div class="comment-entry my-3">

@@ -30,7 +30,7 @@
         <div class="user-mypage w-75 mx-auto m-4 text-center">
           <div class="profile-list">
             <div class="profile-image mx-auto w-75 text-center">
-              <h4 class="m-4">プロフィール画像</h4>
+              <h4 class="m-4">ユーザー画像</h4>
               <%= image_tag attachment_url(@user, :image, :fill, 250, 250, format: "jpg",fallback: "user.jpeg") %>
             </div>
             <div class="user-path m-4">
@@ -53,8 +53,16 @@
             </div>
           </div>
         </div>
-        <div class="user-post text-center">
-          <%= link_to '投稿する',  public_user_posts_path(@user.id), class: "btn btn-success" %>
+        <div class="user-item  d-flex w-50 mx-auto">
+          <% if @user.id == current_user.id %>
+            <div class="user-post text-center">
+              <%= link_to '投稿する',  public_user_posts_path(@user.id), class: "btn btn-success" %>
+            </div>
+          <% else %>
+            <div class="user-all-link">
+              <%= link_to 'ユーザー一覧へ',public_users_path,class: "btn btn-secondary" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
