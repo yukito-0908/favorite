@@ -1,4 +1,5 @@
 class Public::RoomsController < ApplicationController
+
   def create
     @room = Room.create
     @entry1 = Entry.create(room_id: @room.id, user_id: current_user.id)
@@ -9,7 +10,7 @@ class Public::RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     if Entry.where(user_id: current_user.id,room_id: @room.id).present?
-      @messages = @room.messages
+      @messages = @room.messages.order("id DESC")
       @message = Message.new
       @entries = @room.entries
     else
@@ -19,7 +20,6 @@ class Public::RoomsController < ApplicationController
 
   def index
     @user = current_user
-    @entries = @user.entries
+    @entries = Entry.where.not(user_id: @user.id).page(params[:page]).per(10)
   end
-
 end

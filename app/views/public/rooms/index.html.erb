@@ -1,6 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <div class="chat-user m-4 text-center">
+        <h4>チャットユーザー一覧</h4>
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -15,14 +18,15 @@
           <% @entries.each do |entry| %>
           <tr>
           <td><%= entry.user.full_name %></td>
-          <td><%= attachment_image_tag entry.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
+          <td><%= attachment_image_tag entry.user, :image, :fill, 40, 40, fallback: "no_image.jpg"%></td>
           <td><%= entry.user.followings.count %></td>
           <td><%= entry.user.followers.count %></td>
-          <td><%=link_to 'チャットへ', public_room_path(entry.room.id) %></td>
+          <td><%=link_to 'チャットへ', public_room_path(entry.room.id), class: "btn btn-success" %></td>
           </tr>
           <% end %>
         </tbody>
       </table>
+       <%= paginate @entries %>
     </div>
   </div>
 </div>

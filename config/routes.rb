@@ -25,7 +25,7 @@ namespace :public, path: "" do
     get 'followers' => 'relationships#followers', as: 'followers'
     resource :favorites, only: [:create, :destroy]
   end
-  resources :messages, only: [:create]
+  resources :messages, only: [:create, :destroy]
   resources :rooms, only: [:create,:show, :index]
   get '/profiles/mypage' => 'profiles#mypage'
   end
