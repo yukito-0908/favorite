@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col m-5">
+      <div class="post">
+        <h5 class="text-center m-4">料理詳細</h5>
+        <div class="post-show">
+          <div class="post-show w-50 mx-auto text-center">
+            <div class="post-title p-2">
+              <p class="font-weight-bold">タイトル</p>
+              <p class=" border-bottom  border-info"><%= @post.title %></p>
+            </div>
+            <div class="post-genre p-2">
+              <p class="font-weight-bold">ジャンル</p>
+              <p class="border-bottom border-info"><%= @post.genre_name %></p>
+            </div>
+            <div class="post-price p-2">
+              <p class="font-weight-bold">値段</p>
+              <p class="border-bottom border-info"><%= @post.price %></p>
+            </div>
+            <div class="post-tags p-2">
+              <p class="font-weight-bold">タグ一覧</p>
+              <div class="border-bottom border-info">
+                <% @post.tags.each do |tag| %>
+                  <p class="d-inline-block"><%= tag.name %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="post-edit text-right m-4">
+          <%= link_to '編集する',  edit_admins_post_path(@post),class: "btn btn-primary" %>
+          <%= link_to '投稿一覧に戻る',   admins_posts_path, class: "btn btn-success" %>
+          </div>
+        </div>
+        <div class="post-item-all m-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>具材</th>
+                <th>値段</th>
+                <th>入手場所</th>
+                <th>具材説明</th>
+                <th>具材画像一覧</th>
+                <th>料理具材詳細へ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @post_items.each do |post_item| %>
+              <tr>
+                <td><%= post_item.item %></td>
+                <td><%= post_item.price %></td>
+                <td><%= post_item.place %></td>
+                <td><%= post_item.introduction %></td>
+                <td>
+                  <% post_item.images.each do |images| %>
+                    <%= image_tag (images.url),width: '30px', height: '30px' %>
+                  <% end %>
+                </td>
+                <td><%= link_to '料理具材詳細へ',  public_user_post_post_items_path(@user.id,@post.id), class: "btn btn-primary" %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="image">
+          <div class="profile-post mx-auto w-75">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner">
+                <% @post.images.each_with_index  do |image, index| %>
+                  <% if index == 0 %>
+                    <div class="carousel-item active">
+                      <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+                    </div>
+                  <% else %>
+                    <div class="carousel-item">
+                      <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

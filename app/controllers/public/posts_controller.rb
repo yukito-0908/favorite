@@ -84,17 +84,15 @@ class Public::PostsController < ApplicationController
     redirect_to edit_public_user_post_path(@user.id,@post)
   end
 
-  def search
-    @user = User.find(params[:user_id])
-    @posts =  Post.search(params[:user_id],params[:keyword]).page(params[:page]).per(10)
-    @keyword = params[:keyword]
-    @tags = @posts.tag_counts_on(:tags).most_used(20)    # タグ一覧表示
-    @post = Post.new
-    if params[:tag_name]
-      @posts = Post.tagged_with("#{params[:tag_name]}").page(params[:page]).per(10)
-    end
-    render "index"
+   def posts_all
+    @user = current_user
+    @posts = Post.posts_all(params[:posts_all]).page(params[:page]).per(10)
+    @posts_all = params[:posts_all]
   end
+
+
+
+
 
 
 

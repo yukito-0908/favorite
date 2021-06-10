@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="user-all">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ユーザーネーム</th>
+              <th>ユーザー画像</th>
+              <th>投稿数</th>
+              <th>フォロー数</th>
+              <th>フォロワー数</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.full_name %></td>
+              <td><%= attachment_image_tag user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
+              <td><%= user.posts.count %></td>
+              <td><%= user.followings.count %></td>
+              <td><%= user.followers.count %></td>
+              <td>
+                <%= link_to 'ユーザー詳細へ',admins_user_path(user.id), class: "btn btn-success" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

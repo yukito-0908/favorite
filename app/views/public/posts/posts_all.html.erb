@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <div class="search_posts m-4">
+      <div class="search_posts d-flex m-4">
         <div class="post-title text-center">
           <h4 class="w-50 mx-auto m-4">投稿一覧</h4>
         </div>
-        <div class="post-header d-flex">
+        <div class="post-header">
           <div class="post-search">
-            <%= form_with url:  public_posts_all_path,method: :post, local: true do |f| %>
+            <%= form_with url:  public_posts_all_path,method: :get, local: true do |f| %>
               <%= f.text_field :posts_all,value: @posts_all ,placeholder: "投稿を検索する" %>
-              <%= f.submit '検索', :name => nil %>
+              <%= f.submit '検索する', :name => nil %>
             <% end %>
           </div>
           <div class="seach-header w-25 text-center" style="margin:0 0 0 auto;">
@@ -35,9 +35,9 @@
             </div>
           </div>
         </div>
-        <div class="seach-main text-center">
+        <div class="seach-main text-center d-flex" style="width:60%;">
           <% @posts.each do |post| %>
-            <div class="posts d-inline-block text-center m-5" style="width:35%;">
+            <div class="posts m-5">
               <div class="post-title d-flex justify-content-between">
                 <div><%= post.title %></div>
                 <div>
@@ -57,11 +57,11 @@
                       <% post.images.each_with_index  do |image, index| %>
                         <% if index == 0 %>
                           <div class="carousel-item active">
-                            <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
+                            <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-75 mx-auto", style: "height:100px;" %>
                           </div>
                         <% else %>
                           <div class="carousel-item">
-                            <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
+                            <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-75 mx-auto", style: "height:100px;" %>
                           </div>
                         <% end %>
                       <% end %>
@@ -78,7 +78,6 @@
              </div>
           <% end %>
         </div>
-        <%= paginate @posts %>
       </div>
     </div>
   </div>

@@ -9,6 +9,8 @@ devise_for :users, controllers: {
 
 namespace :public, path: "" do
   get 'users/mypage' => 'users#mypage'
+  get'posts_all' => 'posts#posts_all'
+  post'posts_all' => 'posts#posts_all'
   get 'search_all' => 'users#search_all'
   post 'search_all' => 'users#search_all'
   resources :users, only: [:edit, :update ,:index , :show] do
@@ -20,8 +22,6 @@ namespace :public, path: "" do
     resources :comments, only: [:create, :destroy]
   end
     get 'users/tags' => 'posts#post_tags'
-    get 'search_posts', to: 'posts#search'
-    post 'search_posts', to: 'posts#search'
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
@@ -30,5 +30,17 @@ namespace :public, path: "" do
   resources :messages, only: [:create, :destroy]
   resources :rooms, only: [:create,:show, :index]
   end
-  devise_for :admins
+
+
+  devise_for :admins, controllers: {
+  sessions: 'user/sessions',
+  registrations: 'user/registrations'
+}
+
+
+namespace :admins do
+  resources :users
+  resources :posts
+end
+
 end

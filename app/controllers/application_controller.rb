@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
 def after_sign_in_path_for(resource)
   case resource
   when User
-      public_path(@user.id)
+    public_users_mypage_path
   when Admin
-    admin_root_pathz
+     admin_users_path
   end
 end
 

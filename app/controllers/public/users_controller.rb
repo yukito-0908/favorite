@@ -5,7 +5,7 @@ class Public::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.all.order("id DESC")
   end
 
   def show
@@ -31,15 +31,17 @@ class Public::UsersController < ApplicationController
 
   def search_all
     @user = current_user
-    @posts = Post.all.order("id DESC")
+    @posts = Post.all.order("id DESC").page(params[:page]).per(10)
     if params[:ranking] =="1"
-      @posts = Post.includes(:likes).sort {|a,b| b.likes.size <=> a.likes.size}
+      @posts = Post.includes(:likes).sort {|a,b| b.likes.size <=> a.likes.size}.page(params[:page]).per(10)
     elsif params[:ranking] == "2"
-      @posts = Post.includes(:comments).sort {|a,b| b.comments.size <=> a.comments.size}
+      @posts = Post.includes(:comments).sort {|a,b| b.comments.size <=> a.comments.size}.page(params[:page]).per(10)
     elsif params[:ranking] == "3"
-      @posts = Post.all.order(id: "DESC")
+      @posts = Post.all.order(id: "DESC").page(params[:page]).per(10)
     end
   end
+
+
 
 
 

@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="search_posts m-4">
+        <div class="post-title text-center">
+          <h4 class="w-50 mx-auto m-4">投稿一覧</h4>
+        </div>
+        <div class="post-item" style="margin:auto 0 0 0;">
+          <p>❤️はいいね数</p>
+          <p>📝はコメント数</p>
+        </div>
+        <div class="post-header">
+          <div class="seach-header w-25 text-center" style="margin:0 0 0 auto;">
+            <div class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">検索条件</div>
+              <div id="multiCollapseExample1" class=" collapse multi-collapse text-center m-3"  aria-expanded="false">
+                <%= form_with url: admins_posts_path, local: true do |f| %>
+                  <div>
+                    <%= f.radio_button :admin_ranking, 1, checked: true %>
+                    <%= f.label :admin_ranking, "いいねが多い順" %>
+                  </div>
+                  <div>
+                    <%= f.radio_button :admin_ranking,2 %>
+                    <%= f.label :admin_ranking, "コメントが多い順" %>
+                  </div>
+                  <div>
+                    <%= f.radio_button :admin_ranking,3 %>
+                    <%= f.label :admin_ranking, "新着順" %>
+                  </div>
+                  <div class="submit">
+                    <%= f.submit '決定する', class: "btn btn-secondary text-white" %>
+                  </div>
+                <% end %>
+              </div>
+          </div>
+        </div>
+        <div class="posts text-center">
+          <% @posts.each do |post| %>
+            <div class="seach-main text-center d-inline-block m-5" style="width35%;">
+              <div class="post-title d-flex justify-content-between">
+                <div><%= post.title %></div>
+                <div>
+                  ❤️<%=  post.likes.count%>
+                  📝<%= post.comments.count %>
+                </div>
+              </div>
+              <div>
+                <% post.tags.each do |tag| %>
+                  <p class="d-inline-block"><%= tag.name %></p>
+                <% end %>
+              </div>
+              <div class="image">
+                <div class="profile-post mx-auto w-60">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <% post.images.each_with_index  do |image, index| %>
+                        <% if index == 0 %>
+                          <div class="carousel-item active">
+                            <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:100px;" %>
+                          </div>
+                        <% else %>
+                          <div class="carousel-item">
+                            <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:100px;" %>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="seacrh-all-links mt-2">
+                <%= link_to '投稿詳細へ',   admins_post_path(post.id), class: "btn btn-primary"  %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= paginate @posts %>
+      </div>
+    </div>
+  </div>
+</div
+
+

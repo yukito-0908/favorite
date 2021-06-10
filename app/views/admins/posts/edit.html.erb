@@ -40,13 +40,10 @@
             料理投稿編集
           </button>
           <div class="post-destroy m-2">
-            <%=link_to '投稿を排除する',   public_user_post_path(@user.id, @post.id),method: :delete,class: "btn btn-danger" %>
+            <%=link_to '投稿を排除する', admins_post_path(@post.id),method: :delete,class: "btn btn-danger" %>
           </div>
         </div>
-        <div class="post-link m-2 text-right">
-          <%= link_to '料理一覧へ', public_user_posts_path(@user.id) ,class: "btn btn-success" %>
-        </div>
-        <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
+         <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -55,7 +52,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <%= form_with model: @post, url: public_user_post_path(@user.id,@post.id),local: true do |f| %>
+              <%= form_with model: @post, url:  admins_post_path(@post.id),local: true do |f| %>
                 <div class="modal-body">
                   <div class="form-group">
                     <div class="m-2">
@@ -80,9 +77,21 @@
                       <%= f.file_field :images, multiple: true %>
                     </div>
                     <div class="m-2">
-                      <%= f.label 'タグ' %>
-                      <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control",placeholder: "複数タグをつける場合は,で区切ってください" %>
+                      <div class="d-flex">
+                      <div>
+                        <%= f.radio_button :is_active, true, checked: true %>
+                        <%= f.label :is_active, "投稿保持" %>
+                      </div>
+                      <div>
+                        <%= f.radio_button :is_active, false  %>
+                        <%= f.label :is_active, "投稿排除" %>
+                      </div>
+                      </div>
                     </div>
+                      <div class="m-2">
+                        <%= f.label 'タグ' %>
+                        <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control",placeholder: "複数タグをつける場合は,で区切ってください" %>
+                      </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
                       <%= f.submit '投稿する', class: "btn btn-primary" %>
@@ -93,45 +102,39 @@
             </div>
           </div>
         </div>
-        <div class="post-item">
-          <div class="d-flex flex-row-reverse m-4 d-flex">
-            <div class="m-2"><%= link_to '全て排除する',  public_user_post_post_item_destroy_path(@user.id,@post.id),method: :delete, class: "btn btn-danger" %></div>
-            <div class="m-2"><%= link_to '料理一覧へ', public_user_posts_path(@user.id),class: "btn btn-success" %></div>
-          </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>具材</th>
-                <th>値段</th>
-                <th>入手場所</th>
-                <th>具材説明</th>
-                <th>具材画像一覧</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @post.post_items.each do |post_item| %>
-                <tr>
-                  <td><%= post_item.item %></td>
-                  <td><%= post_item.price %></td>
-                  <td><%= post_item.place %></td>
-                  <td><%= post_item.introduction %></td>
-                  <td>
-                    <% post_item.images.each do |images| %>
-                      <%= image_tag (images.url),width: '30px', height: '30px' %>
-                    <% end %>
-                  </td>
-                  <td class="d-flex">
-                    <div><%= link_to '料理詳細へ',   public_user_post_path(@user.id,@post.id), class: "btn btn-primary mr-2"  %></div>
-                    <div>
-                       <%= link_to '排除する',   public_user_post_post_item_path(@user.id,@post.id,post_item.id),method: :delete, class: "btn btn-danger" %>
-                    </div>
-                  </td>
-                </tr>
-              <% end %>
+        <div class="post-link m-2 text-right">
+          <%= link_to '料理一覧へ', admins_posts_path ,class: "btn btn-success" %>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>具材</th>
+              <th>値段</th>
+              <th>入手場所</th>
+              <th>具材説明</th>
+              <th>具材画像一覧</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @post.post_items.each do |post_item| %>
+            <tr>
+              <td><%= post_item.item %></td>
+              <td><%= post_item.price %></td>
+              <td><%= post_item.place %></td>
+              <td><%= post_item.introduction %></td>
+              <td>
+                <% post_item.images.each do |images| %>
+                  <%= image_tag (images.url),width: '30px', height: '30px' %>
+                <% end %>
+              </td>
+              <td class="d-flex">
+                <div><%= link_to '料理詳細へ',   admins_post_path(post.id), class: "btn btn-primary mr-2"  %></div>
+              </td>
+            </tr>
+          <% end %>
             </tbody>
           </table>
-        </div>
       </div>
     </div>
   </div>

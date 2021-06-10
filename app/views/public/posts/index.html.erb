@@ -1,15 +1,7 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col">
-      <header class="d-flex justify-content-between">
-        <div class="tag-search m-2">
-          <div class="search">
-            <%= form_with  url:  public_user_search_posts_path(@user.id), method: :post, local: true do |f| %>
-              <%= f.text_field  :keyword,value: @keyword ,placeholder: "投稿を検索する"%>
-              <%= f.submit "検索" %>
-            <% end %>
-          </div>
-        </div>
+      <header class="text-right">
         <div class="tag-title m-2">
           <% @tags.each do |tag| %>
           <span class="badge  badge-primary mr-2 p-2">
@@ -117,8 +109,8 @@
               <%= f.file_field :images, multiple: true %>
             </div>
             <div class="m-2">
-              <%= f.label :tag_list %>
-              <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control" %>
+              <%= f.label 'タグ' %>
+              <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control",placeholder: "複数タグをつける場合は,で区切ってください" %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
