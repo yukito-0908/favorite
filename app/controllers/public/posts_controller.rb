@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
     @user = User.find(params[:user_id])
     @post = Post.new
     @posts = @user.posts.page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順で取
-    @tags = @posts.tag_counts_on(:tags).most_used(20)    # タグ一覧表示
+    @tags = @posts.tag_counts_on(:tags).order('count DESC')     # タグ一覧表示
     if params[:tag_name]
       @posts = Post.tagged_with("#{params[:tag_name]}").page(params[:page]).per(10)
     end
@@ -14,7 +14,7 @@ class Public::PostsController < ApplicationController
     @user = User.find(params[:user_id])
     @post = Post.new(posts_params)
     @post.user_id = @user.id
-  if  @post.save!
+  if  @post.save
     redirect_to public_user_posts_path(@user.id)
   else
     render index

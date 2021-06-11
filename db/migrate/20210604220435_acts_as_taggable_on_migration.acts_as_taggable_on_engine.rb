@@ -7,7 +7,8 @@ end
 ActsAsTaggableOnMigration.class_eval do
   def self.up
     create_table ActsAsTaggableOn.tags_table do |t|
-      t.string :name
+      t.string :name, default: true
+      t.references :taggings_count, polymorphic: true
       t.timestamps
     end
 
@@ -18,6 +19,7 @@ ActsAsTaggableOnMigration.class_eval do
       # long enough to store the required class names.
       t.references :taggable, polymorphic: true
       t.references :tagger, polymorphic: true
+
 
       # Limit is created to prevent MySQL error on index
       # length for MyISAM table type: http://bit.ly/vgW2Ql

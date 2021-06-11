@@ -15,7 +15,6 @@ class User < ApplicationRecord
 
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
-  acts_as_taggable_on :tags, :skills
 
 
 

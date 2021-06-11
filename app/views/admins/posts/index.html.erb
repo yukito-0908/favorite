@@ -49,17 +49,17 @@
                 <% end %>
               </div>
               <div class="image">
-                <div class="profile-post mx-auto w-60">
+                <div class="profile-post mx-auto w-75">
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <% post.images.each_with_index  do |image, index| %>
                         <% if index == 0 %>
                           <div class="carousel-item active">
-                            <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:100px;" %>
+                            <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
                           </div>
                         <% else %>
                           <div class="carousel-item">
-                            <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:100px;" %>
+                            <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
                           </div>
                         <% end %>
                       <% end %>

@@ -9,6 +9,7 @@ class Post < ApplicationRecord
   acts_as_taggable   # acts_as_taggable_on :tags の省略
 # 参)複数設定も可能↓
   acts_as_taggable_on :skills, :interests  # @post.skil
+  acts_as_taggable_on :tags, :skills
 
 
   def liked_by?(user)

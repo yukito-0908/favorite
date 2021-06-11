@@ -33,11 +33,11 @@ class Public::UsersController < ApplicationController
     @user = current_user
     @posts = Post.all.order("id DESC").page(params[:page]).per(10)
     if params[:ranking] =="1"
-      @posts = Post.includes(:likes).sort {|a,b| b.likes.size <=> a.likes.size}.page(params[:page]).per(10)
+        @posts = Post.joins(:likes).group(:post_id).order('count(user_id) desc').page(1).per(10)
     elsif params[:ranking] == "2"
-      @posts = Post.includes(:comments).sort {|a,b| b.comments.size <=> a.comments.size}.page(params[:page]).per(10)
+       @posts = Post.joins(:comments).group(:post_id).order('count(user_id) desc').page(1).per(10)
     elsif params[:ranking] == "3"
-      @posts = Post.all.order(id: "DESC").page(params[:page]).per(10)
+      @posts = Post.all.order(id: "DESC").page(1).per(10)
     end
   end
 
