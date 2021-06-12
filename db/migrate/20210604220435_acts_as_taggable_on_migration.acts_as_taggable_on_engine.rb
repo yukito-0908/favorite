@@ -7,7 +7,7 @@ end
 ActsAsTaggableOnMigration.class_eval do
   def self.up
     create_table ActsAsTaggableOn.tags_table do |t|
-      t.string :name, default: true
+      t.string :name
       t.references :taggings_count, polymorphic: true
       t.timestamps
     end

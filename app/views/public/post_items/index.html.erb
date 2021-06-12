@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <h5>料理具材一覧</h5>
+    <div class="col m-5">
+      <h5 class="text-center m-3">料理具材一覧</h5>
       <table class="table">
         <thead>
           <tr>
@@ -23,10 +23,7 @@
         </tbody>
       </table>
 
-        <div class="profile-post w-50 mx-auto">
-          <div class="post_item-image">
-            <h5>料理具材画像一覧</h5>
-          </div>
+        <div class="profile-post w-50 mx-auto text-center p-5">
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -56,9 +53,9 @@
               </a>
           </div>
         </div>
-        <div class="post_item-link">
-          <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post.id),class: "btn btn-primary" %>
-          <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
+        <div class="post_item-link text-center">
+          <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post.id),class: "btn btn-primary m-2" %>
+          <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success m-2" %>
         </div>
       </div>
     </div>

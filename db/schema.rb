@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_073849) do
+ActiveRecord::Schema.define(version: 2021_06_12_065614) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -141,13 +141,12 @@ ActiveRecord::Schema.define(version: 2021_06_11_073849) do
     t.integer "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
-    t.integer "taggings_count"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
     t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name", default: "t"
+    t.string "name"
     t.string "taggings_count_type"
     t.integer "taggings_count_id"
     t.datetime "created_at"

@@ -43,9 +43,6 @@
             <%=link_to '投稿を排除する',   public_user_post_path(@user.id, @post.id),method: :delete,class: "btn btn-danger" %>
           </div>
         </div>
-        <div class="post-link m-2 text-right">
-          <%= link_to '料理一覧へ', public_user_posts_path(@user.id) ,class: "btn btn-success" %>
-        </div>
         <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -84,7 +81,6 @@
                       <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control",placeholder: "複数タグをつける場合は,で区切ってください" %>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
                       <%= f.submit '投稿する', class: "btn btn-primary" %>
                     </div>
                   </div>
@@ -93,6 +89,7 @@
             </div>
           </div>
         </div>
+
         <div class="post-item">
           <div class="d-flex flex-row-reverse m-4 d-flex">
             <div class="m-2"><%= link_to '全て排除する',  public_user_post_post_item_destroy_path(@user.id,@post.id),method: :delete, class: "btn btn-danger" %></div>
@@ -126,11 +123,58 @@
                     <div>
                        <%= link_to '排除する',   public_user_post_post_item_path(@user.id,@post.id,post_item.id),method: :delete, class: "btn btn-danger" %>
                     </div>
+                     <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#myModal">具材を編集する</button>
                   </td>
                 </tr>
               <% end %>
             </tbody>
           </table>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">具材編集</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%= form_for @post,url:  public_user_posts_path(@user.id),local: true do |f| %>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <div class="m-2">
+                      <%= f.label 'タイトル' %>
+                      <%= f.text_field :title %>
+                    </div>
+                    <div class="m-2">
+                      <%= f.label 'ジャンル' %>
+                      <%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %>
+                    </div>
+                    <div class="m-2">
+                      <%= f.label '値段' %>
+                      <%= f.text_field :price %>
+                    </div>
+                    <div class="m-2">
+                      <%= f.label '料理説明' %>
+                      <%=f.text_area :introduction, class: "padding:20px;" %>
+                    </div>
+                    <div class="m-2">
+                      <%= f.label '料理画像' %>
+                      <%= f.file_field :images, multiple: true %>
+                    </div>
+                    <div class="m-2">
+                      <%= f.label 'タグ' %>
+                      <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control",placeholder: "複数タグをつける場合は,で区切ってください" %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                      <%= f.submit '投稿する', class: "btn btn-primary" %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

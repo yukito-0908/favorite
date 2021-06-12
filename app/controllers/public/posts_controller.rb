@@ -31,6 +31,12 @@ class Public::PostsController < ApplicationController
   end
   end
 
+  def post_item_update
+     @post_item = PostItem.find(params[:id])
+     @post.update(post_items_params)
+     redirect_to   edit_admins_post_path(@post)
+  end
+
   def post_tags
     @user = User.find(params[:user_id])
     @tags = Post.tag_counts_on(:tags).order('count DESC')     # 全タグ(Postモデルからtagsカラムを降順で取得)

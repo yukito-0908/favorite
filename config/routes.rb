@@ -41,6 +41,8 @@ namespace :public, path: "" do
 namespace :admins do
   resources :users
   resources :posts
+  patch 'post_item_update' => 'posts#post_item_update'
+  resources :tags, only: [:index]
 end
 
 end

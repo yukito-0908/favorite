@@ -2,8 +2,59 @@
   <div class="row">
     <div class="col">
       <div class="tag">
-        <table class=""
+        <table class="table">
+          <thead>
+            <tr>
+              <th>タグ名</th>
+              <th>タグ数</th>
+              <th>タグ編集</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tags.each do |tag| %>
+            <tr>
+              <td><%= tag.name %></td>
+              <td><%= tag.taggings_count %></td>
+              <td><%=link_to '表示する',    admins_tags_path(tag: tag.name) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
+      <%if @post.present? %>
+        <div class="table-all">
+          <h5 class="m-3 text-center">投稿一覧</h5>
+          <table class= "table m-4">
+             <thead>
+               <tr>
+                  <th>タイトル</th>
+                  <th>ジャンル名</th>
+                  <th>料理画像</th>
+                  <th>いいね数</th>
+                  <th>料理詳細</th>
+               </tr>
+              </thead>
+              <tbody>
+                <% @post.each do |post| %>
+                  <tr>
+                    <td><%= post.title %></td>
+                    <td><%= post.genre_name %></td>
+                    <td>
+                      <% post.images.each do |post| %>
+                        <%= image_tag (post.url),width: '30px', height: '30px' %>
+                      <% end %>
+                    </td>
+                    <td><%= post.likes.count %></td>
+                    <td><%= post.tag_list %></td>
+                    <td>
+                      <%= link_to '料理詳細へ',  edit_admins_post_path(post.id) ,'data-turbolinks': false,class: "btn btn-success" %>
+                    </td>
+                  </tr>
+                 <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
     </div>
   </div>
 </div>
