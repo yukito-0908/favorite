@@ -3,49 +3,50 @@
     <div class="col">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <div class="sign_up_all">
-          <h4 class="text-center">新規登録</h4>
-            <div class="sign_up_item w-50">
-              <div class="sign_up_name">
-                <p>名前</p>
-                <div class="d-flex">
-                  <p>姓　<%= f.text_field :first_name %></p>
-                  <p>名　<%= f.text_field :last_name %></p>
-                </div>
+          <h4 class="text-center mb-5">新規登録</h4>
+          <div class="sign_up_item  mx-auto" style="width:60%;">
+            <div class="sign_up_name m-3">
+              <p>名前</p>
+              <div class="d-flex  justify-content-between">
+                <p>姓　<%= f.text_field :first_name %></p>
+                <p>名　<%= f.text_field :last_name %></p>
               </div>
-              <div class="sign_up_name_kana">
-                <p>名前（カナ）</p>
-                  <div class="d-flex">
-                    <p>セイ　<%= f.text_field :first_name_kana %></p>
-                    <p>メイ　<%= f.text_field :last_name_kana %></p>
-                  </div>
+            </div>
+            <div class="sign_up_name_kana m-3">
+              <p>名前（カナ）</p>
+              <div class="d-flex justify-content-between">
+                <p>セイ　<%= f.text_field :first_name_kana %></p>
+                <p>メイ　<%= f.text_field :last_name_kana %></p>
               </div>
-              <div class="user-image">
-                <p>ユーザー画像</p>
-                <%= f.attachment_field :image %>
-              </div>
-              <div class="password d-flex">
-                <p>パスワード</p>
-                <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-              </div>
-              <div class="email d-flex">
-                <p>メールアドレス</p>
-                <p><%= f.text_field :email %></p>
-              </div>
-              <div class="phone_number d-flex">
-                <p>電話番号</p>
-                <p><%= f.text_field :phone_number %></p>
-              </div>
-              <div class="users-image">
-                 <p>インスタグラムID</p>
-                 <p><%= f.text_field :instagram_id %></p>
-              </div>
-              <div class="user-introduction">
-                <p>自己紹介</p>
-                <p><%= f.text_area :introduction %></p>
-              </div>
-              <div class="actions text-center">
-                <%= f.submit "新規登録",class: "btn btn-success" %>
-              </div>
+            </div>
+            <div class="user-image  d-flex justify-content-between m-3">
+              <p>ユーザー画像</p>
+              <div><%= f.attachment_field :image %></div>
+            </div>
+            <div class="password d-flex justify-content-between m-3">
+              <p>パスワード</p>
+              <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+            </div>
+            <div class="email d-flex justify-content-between m-3">
+              <p>メールアドレス</p>
+              <p><%= f.text_field :email %></p>
+            </div>
+            <div class="phone_number d-flex justify-content-between m-3">
+              <p>電話番号</p>
+              <p><%= f.text_field :phone_number %></p>
+            </div>
+            <div class="users-image  d-flex  justify-content-between m-3">
+               <p>インスタグラムID</p>
+               <p><%= f.text_field :instagram_id %></p>
+            </div>
+            <div class="user-introduction d-flex  justify-content-between m-3">
+              <p>自己紹介</p>
+              <p><%= f.text_area :introduction %></p>
+            </div>
+            <div class="actions text-center">
+              <%= f.submit "新規登録",class: "btn btn-success" %>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>

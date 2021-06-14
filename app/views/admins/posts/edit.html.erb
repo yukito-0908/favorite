@@ -1,23 +1,23 @@
 <div class="container">
   <div class="row">
-    <div class="col m-4">
+    <div class="col">
       <div class="post-all">
-        <h5 class="text-center m-4">料理確認</h5>
+        <h4 class="text-center mb-5">料理確認</h4>
         <div class="post-top text-center mx-auto w-75">
           <div class="post-show">
-            <div class="post-title p-2">
+            <div class="post-title m-2">
               <p class="font-weight-bold">タイトル</p>
               <p class=" border-bottom  border-info"><%= @post.title %></p>
             </div>
-            <div class="post-genre p-2">
+            <div class="post-genre m-2">
               <p class="font-weight-bold">ジャンル</p>
               <p class="border-bottom border-info"><%= @post.genre_name %></p>
             </div>
-            <div class="post-price p-2">
+            <div class="post-price m-2">
               <p class="font-weight-bold">値段</p>
               <p class="border-bottom border-info"><%= @post.price %></p>
             </div>
-            <div class="post-tags p-2">
+            <div class="post-tags m-2">
               <p class="font-weight-bold">タグ一覧</p>
               <div class="border-bottom border-info">
                 <% @post.tags.each do |tag| %>
@@ -26,7 +26,7 @@
               </div>
             </div>
           </div>
-          <div class="post-image p-2">
+          <div class="post-image m-2">
             <p class="font-weight-bold">画像一覧</p>
             <div class="border-bottom border-info">
               <% @post.images.each do |image| %>
@@ -55,37 +55,36 @@
               <%= form_with model: @post, url:  admins_post_path(@post.id),local: true do |f| %>
                 <div class="modal-body">
                   <div class="form-group">
-                    <div class="m-2">
-                      <%= f.label 'タイトル' %>
-                      <%= f.text_field :title %>
+                    <div class="m-3  d-flex justify-content-between">
+                      <div><%= f.label 'タイトル' %></div>
+                      <div><%= f.text_field :title %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label 'ジャンル' %>
-                      <%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %>
+                    <div class="m-3  d-flex justify-content-between">
+                      <div><%= f.label 'ジャンル' %></div>
+                      <div><%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label '値段' %>
-                      <%= f.text_field :price %>
+                    <div class="m-3  d-flex justify-content-between">
+                      <div><%= f.label '値段' %></div>
+                      <div><%= f.text_field :price %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label '料理説明' %>
-
-                      <%=f.text_area :introduction, class: "padding:20px;" %>
+                    <div class="m-3  d-flex justify-content-between">
+                      <div><%= f.label '料理説明' %></div>
+                      <div><%=f.text_area :introduction, style: "padding:30px;" %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label '料理画像' %>
-                      <%= f.file_field :images, multiple: true %>
+                    <div class="m-3  d-flex justify-content-between">
+                      <div><%= f.label '料理画像' %></div>
+                      <div><%= f.file_field :images, multiple: true %></div>
                     </div>
-                    <div class="m-2">
-                      <div class="d-flex">
-                      <div>
-                        <%= f.radio_button :is_active, true, checked: true %>
-                        <%= f.label :is_active, "投稿保持" %>
-                      </div>
-                      <div>
-                        <%= f.radio_button :is_active, false  %>
-                        <%= f.label :is_active, "投稿排除" %>
-                      </div>
+                    <div class="m-3">
+                      <div class="d-flex  justify-content-between w-75 mx-auto">
+                        <div class="d-flex">
+                          <div><%= f.radio_button :is_active, true, checked: true %></div>
+                          <div><%= f.label :is_active, "投稿保持" %></div>
+                        </div>
+                        <div class="d-flex">
+                          <div><%= f.radio_button :is_active, false  %></div>
+                          <div><%= f.label :is_active, "投稿排除" %></div>
+                        </div>
                       </div>
                     </div>
                       <div class="m-2">

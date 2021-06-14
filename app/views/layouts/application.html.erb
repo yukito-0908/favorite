@@ -13,10 +13,13 @@
     </div>
   <div class="header-item d-flex">
     <% if admin_signed_in? %>
-      <li class="mx-4" style="list-style:none;"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "text-dark rounded border border-dark p-2" %></li>
+      <li class="mx-4" style="list-style:none;"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete,data: { confirm: 'ログアウトしますか？' }, class: "text-dark rounded border border-dark p-2" %></li>
+      <li class="mx-4" style="list-style:none;"><%= link_to "ユーザー一覧", admins_users_path, class: "text-dark rounded border border-dark p-2" %></li>
+      <li class="mx-4" style="list-style:none;"><%= link_to "投稿一覧", admins_posts_path,"data-turbolinks": false, class: "text-dark rounded border border-dark p-2" %></li>
+      <li class="mx-4" style="list-style:none;"><%= link_to "タグ一覧", admins_tags_path, class: "text-dark rounded border border-dark p-2" %></li>
     <% elsif user_signed_in? %>
       <%= link_to  destroy_user_session_path, method: :delete,data: { confirm: 'ログアウトしますか？' },class:"m-2" do %> <%= image_tag 'door.jpeg' %> <% end %>
-      <%= link_to   public_search_all_path,class:"m-2"  do %> <%= image_tag 'searh.jpeg' %> <% end %>
+      <%= link_to   public_search_all_path,"data-turbolinks": false,class:"m-2"  do %> <%= image_tag 'searh.jpeg' %> <% end %>
       <%= link_to   public_users_mypage_path,class:"m-2" do %> <%= image_tag 'mypage.jpeg' %> <% end %>
       <%= link_to  public_rooms_path,class:'m-2' do %><%= image_tag 'mail.jpeg' %> <% end %>
     <% else %>
@@ -26,8 +29,12 @@
   </div>
   </header>
   <body>
-
     <%= yield %>
+    <footer>
+      <div class="footer-all mt-5">
+        <h5 class="text-center text-dark">@favorite_food</h5>
+      </div>
+    </footer>
   </body>
 
 </html>

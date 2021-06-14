@@ -4,12 +4,10 @@
       <header class="text-right">
         <div class="tag-title">
         <% if @tags.present? %>
-
-              <% @tags.each do |tag| %>
-                <span class="badge  badge-primary mr-2 p-2">
-                  <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white" %>
-                </span>
-
+          <% @tags.each do |tag| %>
+            <span class="badge  badge-primary mr-2 p-2">
+              <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white" %>
+            </span>
           <% end %>
         <% else %>
         <% end %>
@@ -29,7 +27,7 @@
             </thead>
             <tbody>
               <% @posts.each do |post| %>
-                <% if post.is_active ==false %>
+                <% if post.is_active == false or post.user.is_active == false %>
                 <% else %>
                   <tr>
                     <td><%= post.title %></td>
@@ -81,7 +79,7 @@
         </button>
         <% else %>
         <% end %>
-        <%= paginate @posts,class:"paginate" %>
+        <%= paginate @posts %>
      </div>
   </div>
 </div>

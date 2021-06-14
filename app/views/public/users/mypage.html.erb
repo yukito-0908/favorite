@@ -63,6 +63,9 @@
             <div class="user-all-link m-2">
               <%= link_to 'ユーザー一覧へ',public_users_path,class: "btn btn-secondary" %>
             </div>
+             <div class="user-all-link m-2">
+              <%= link_to '投稿一覧へ', public_user_posts_path(@user.id),class: "btn btn-primary" %>
+            </div>
         </div>
       </div>
     </div>

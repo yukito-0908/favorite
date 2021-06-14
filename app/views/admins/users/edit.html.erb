@@ -3,7 +3,7 @@
     <div class="col">
       <%= form_with model: @user,url:  admins_user_path(@user.id), local: true do |f| %>
         <div class="sign_up_all m-4">
-          <h4 class="text-center">編集</h4>
+          <h4 class="text-center">ユーザー編集</h4>
             <div class="sign_up_item  mx-auto m-4" style="width:60%;">
               <div class="sign_up_name m-2">
                 <p class="my-3">名前</p>
@@ -21,25 +21,25 @@
               </div>
               <div class="user-image d-flex justify-content-between m-3">
                 <p>ユーザー画像</p>
-                <div class="ml-4"><%= f.attachment_field :image %></div>
+                <div><%= f.attachment_field :image %></div>
               </div>
-              <div class="email d-flex justify-content-between m-2">
+              <div class="email d-flex justify-content-between m-3">
                 <p>メールアドレス</p>
                 <p><%= f.text_field :email %></p>
               </div>
-              <div class="phone_number d-flex justify-content-between m-2">
+              <div class="phone_number d-flex justify-content-between m-3">
                 <p>電話番号</p>
                 <p><%= f.text_field :phone_number %></p>
               </div>
-              <div class="users-image d-flex justify-content-between m-2">
+              <div class="users-image d-flex justify-content-between m-3">
                  <p>インスタグラムID</p>
                  <p><%= f.text_field :instagram_id %></p>
               </div>
-              <div class="user-introduction d-flex justify-content-between m-2">
+              <div class="user-introduction d-flex justify-content-between m-3">
                 <p>自己紹介</p>
                 <p><%= f.text_area :introduction %></p>
               </div>
-              <div class="user-is_active d-flex justify-content-around m-2">
+              <div class="user-is_active d-flex justify-content-around m-3">
                 <div>
                   <%= f.radio_button :is_active, 'E', checked: true %>
                   <%= f.label :is_active, "登録中" %>
@@ -50,7 +50,7 @@
                 </div>
               </div>
                 <div class="submit text-center">
-                  <%= f.submit '決定する', class: "btn btn-secondary text-white" %>
+                  <%= f.submit '決定する', class: "btn btn-primary text-white" %>
                 </div>
             </div>
         </div>

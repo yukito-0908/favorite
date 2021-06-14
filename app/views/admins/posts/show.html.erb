@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col m-5">
       <div class="post">
-        <h5 class="text-center m-4">料理詳細</h5>
+        <h4 class="text-center mb-5">料理詳細</h4>
         <div class="post-show">
           <div class="post-show w-50 mx-auto text-center">
             <div class="post-title p-2">
@@ -31,7 +31,7 @@
           <%= link_to '投稿一覧に戻る',   admins_posts_path, class: "btn btn-success" %>
           </div>
         </div>
-        <div class="post-item-all m-4">
+        <div class="post-item-all m-5">
           <table class="table">
             <thead>
               <tr>
@@ -55,20 +55,15 @@
                     <%= image_tag (images.url),width: '30px', height: '30px' %>
                   <% end %>
                 </td>
-                <td><%= link_to '料理具材詳細へ',  public_user_post_post_items_path(@user.id,@post.id), class: "btn btn-primary" %></td>
+                <td><%= link_to '料理具材詳細へ',  public_user_post_post_items_path(@post.user_id,@post.id), class: "btn btn-primary" %></td>
               </tr>
               <% end %>
             </tbody>
           </table>
         </div>
-        <div class="image">
+        <div class="image mt-4">
           <div class="profile-post mx-auto w-75">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-              </ol>
               <div class="carousel-inner">
                 <% @post.images.each_with_index  do |image, index| %>
                   <% if index == 0 %>
@@ -82,14 +77,6 @@
                   <% end %>
                 <% end %>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-                <span class="sr-only">Next</span>
-              </a>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ def after_sign_in_path_for(resource)
   when User
     public_users_mypage_path
   when Admin
-     admin_users_path
+     admins_users_path
   end
 end
 
@@ -16,7 +16,7 @@ end
     if resource_or_scope == :admin_admin_user
       new_admin_user_registaration_path
     else
-      new_user_registration_path
+      root_path
     end
   end
 

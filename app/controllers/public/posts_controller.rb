@@ -3,7 +3,7 @@ class Public::PostsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @post = Post.new
-    @posts = @user.posts.page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順
+    @posts = @user.posts.where(is_active: true).page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順
     @posts.each do |post|
       if  post.is_active == false
       else
@@ -95,9 +95,9 @@ class Public::PostsController < ApplicationController
     redirect_to edit_public_user_post_path(@user.id,@post)
   end
 
-   def posts_all
+  def posts_all
     @user = current_user
-    @posts = Post.posts_all(params[:posts_all]).page(params[:page]).per(10)
+    @posts = Post.posts_all(params[:posts_all]).where("(is_active: true) AND (Post.user.is_active == 'E')").page(params[:page]).per(10)
     @posts_all = params[:posts_all]
   end
 

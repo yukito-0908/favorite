@@ -37,46 +37,49 @@
         </div>
         <div class="seach-main text-center">
           <% @posts.each do |post| %>
-            <div class="posts d-inline-block text-center m-5" style="width:35%;">
-              <div class="user-name"><%= @user.full_name %></div>
-              <div class="post-title d-flex justify-content-between w-75" style="margin:20px auto;">
-                <div><%= post.title %></div>
-                <div>
-                  ❤️<%=  post.likes.count%>
-                  📝<%= post.comments.count %>
+            <% if post.user.is_active == 'F' %>
+            <% else %>
+              <div class="posts d-inline-block text-center m-5" style="width:35%;">
+                <div class="user-name"><%= @user.full_name %></div>
+                <div class="post-title d-flex justify-content-between w-75" style="margin:20px auto;">
+                  <div><%= post.title %></div>
+                  <div>
+                    ❤️<%=  post.likes.count%>
+                    📝<%= post.comments.count %>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <% post.tags.each do |tag| %>
-                  <p class="d-inline-block"><%= tag.name %></p>
-                <% end %>
-              </div>
-              <div class="image">
-                <div class="profile-post mx-auto w-75">
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                      <% post.images.each_with_index  do |image, index| %>
-                        <% if index == 0 %>
-                          <div class="carousel-item active">
-                            <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
-                          </div>
-                        <% else %>
-                          <div class="carousel-item">
-                            <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
-                          </div>
+                <div>
+                  <% post.tags.each do |tag| %>
+                    <p class="d-inline-block"><%= tag.name %></p>
+                  <% end %>
+                </div>
+                <div class="image">
+                  <div class="profile-post mx-auto w-75">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                        <% post.images.each_with_index  do |image, index| %>
+                          <% if index == 0 %>
+                            <div class="carousel-item active">
+                              <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
+                            </div>
+                          <% else %>
+                            <div class="carousel-item">
+                              <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-50 mx-auto", style: "height:80px;" %>
+                            </div>
+                          <% end %>
                         <% end %>
-                      <% end %>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="seacrh-all-links mt-2">
-                <%= link_to '投稿詳細へ',  public_user_post_path(@user.id,post.id), class: "btn btn-primary"  %>
-              </div>
-              <div class="flex-path mt-2">
-                <%= link_to "いいねしたユーザー", public_user_post_likes_path(@user.id,post.id), class: "btn btn-success"%>
-              </div>
-             </div>
+                <div class="seacrh-all-links mt-2">
+                  <%= link_to '投稿詳細へ',  public_user_post_path(post.user_id,post.id), class: "btn btn-primary"  %>
+                </div>
+                <div class="flex-path mt-2">
+                  <%= link_to "いいねしたユーザー", public_user_post_likes_path(post.user_id,post.id), class: "btn btn-success"%>
+                </div>
+               </div>
+            <% end %>
           <% end %>
         </div>
         <div class="text-center"><%= link_to '全ての投稿', public_search_all_path,class:"btn btn-primary" %></div>

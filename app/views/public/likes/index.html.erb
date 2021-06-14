@@ -5,7 +5,6 @@
        <table class="table">
          <thead>
            <tr>
-             <th>ユーザーname</th>
               <th>ユーザーネーム</th>
               <th>ユーザー画像</th>
               <th>投稿数</th>
@@ -15,21 +14,18 @@
             </tr>
           </thead>
           <tbody>
-            <% @post.likes.each do |like| %>
-            <% if like.user == current_user %>
-              <% else %>
-                <tr>
-                  <td><%= like.user.full_name %></td>
-                  <td><%= attachment_image_tag like.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
-                  <td><%= like.user.posts.count %></td>
-                  <td><%= like.user.followings.count %></td>
-                  <td><%= like.user.followers.count %></td>
-                  <td>
-                    <%= link_to 'ユーザー詳細へ',public_user_path(like.user.id), class: "btn btn-success" %>
-                  </td>
-                </tr>
-               <% end %>
-            <% end %>
+          <% @post.likes.each do |like| %>
+            <tr>
+              <td><%= like.user.full_name %></td>
+              <td><%= attachment_image_tag like.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
+              <td><%= like.user.posts.count %></td>
+              <td><%= like.user.followings.count %></td>
+              <td><%= like.user.followers.count %></td>
+              <td>
+                <%= link_to 'ユーザー詳細へ',public_user_path(like.user_id), class: "btn btn-success" %>
+              </td>
+            </tr>
+          <% end %>
           </tbody>
        </table>
      </div>

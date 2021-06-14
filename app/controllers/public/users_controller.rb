@@ -5,7 +5,7 @@ class Public::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.order("id DESC")
+    @users = User.all.where(is_active: 'E').order("id DESC").page(params[:page]).per(10)
   end
 
   def show
@@ -31,7 +31,7 @@ class Public::UsersController < ApplicationController
 
   def search_all
     @user = current_user
-    @posts = Post.all.order("id DESC").page(params[:page]).per(10)
+    @posts = Post.all.where(is_active: true).order("id DESC").page(params[:page]).per(10)
     if params[:ranking] =="1"
         @posts = Post.joins(:likes).group(:post_id).order('count(user_id) desc').page(1).per(10)
     elsif params[:ranking] == "2"

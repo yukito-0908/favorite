@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col">
       <div class="user-all">
+        <div class="user-title">
+          <h4 class="mb-5 text-center">ユーザー一覧</h4>
+        </div>
         <table class="table">
           <thead>
             <tr>
@@ -10,6 +13,7 @@
               <th>投稿数</th>
               <th>フォロー数</th>
               <th>フォロワー数</th>
+              <th>ユーザーステータス</th>
               <th></th>
             </tr>
           </thead>
@@ -22,12 +26,20 @@
               <td><%= user.followings.count %></td>
               <td><%= user.followers.count %></td>
               <td>
+                <% if user.is_active == "E" %>
+                  <p class="text-success">登録済み</p>
+                <% else user.is_active == "F" %>
+                  <p class="text-success">退会済み</p>
+                <% end %>
+              </td>
+              <td>
                 <%= link_to 'ユーザー詳細へ',admins_user_path(user.id), class: "btn btn-success" %>
               </td>
             </tr>
           <% end %>
           </tbody>
         </table>
+        <%= paginate @users %>
       </div>
     </div>
   </div>

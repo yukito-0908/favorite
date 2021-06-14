@@ -17,20 +17,21 @@
         </thead>
         <tbody>
         <% @users.each do |user| %>
-        <% if user == current_user or user.is_active == false %>
-        <% else %>
-          <tr>
-            <td><%=link_to user.full_name, public_user_path(user.id),class: "text-dark" %></td>
-            <td><%= attachment_image_tag user, :image, :fill, 40, 40, fallback: "no_image.jpg"%></td>
-            <td><%=link_to user.posts.count,public_user_posts_path(user.id),class:"text-dark" %></td>
-            <td><%=link_to user.followings.count, public_user_followings_path(user.id),class:"text-dark" %></td>
-            <td><%=link_to  user.followers.count, public_user_followers_path(user.id),class: "text-dark" %></td>
-            <td>
-              <%= link_to 'ユーザー詳細へ',public_user_path(user.id), class: "btn btn-success" %>
-            </td>
-          </tr>
-           <% end %>
-            <% end %>
+          <% if user.is_active == false %>
+          <% else %>
+            <tr>
+              <td><%=link_to user.full_name, public_user_path(user.id),class: "text-dark" %></td>
+              <td><%= attachment_image_tag user, :image, :fill, 40, 40, fallback: "no_image.jpg"%></td>
+              <td><%=link_to user.posts.count,public_user_posts_path(user.id),class:"text-dark" %></td>
+              <td><%=link_to user.followings.count, public_user_followings_path(user.id),class:"text-dark" %></td>
+              <td><%=link_to  user.followers.count, public_user_followers_path(user.id),class: "text-dark" %></td>
+              <% if user == current_user %>
+              <% else %>
+              <td><%= link_to 'ユーザー詳細へ',public_user_path(user.id), class: "btn btn-success" %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
         </tbody>
       </table>
     </div>
