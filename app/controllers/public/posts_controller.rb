@@ -4,7 +4,12 @@ class Public::PostsController < ApplicationController
     @user = User.find(params[:user_id])
     @post = Post.new
     @posts = @user.posts.page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順
-    @tags = @posts.tag_counts_on(:tags).order('count DESC')     # タグ一覧表示
+    @posts.each do |post|
+      if  post.is_active == false
+      else
+        @tags = @posts.tag_counts_on(:tags)    # タグ一覧表示
+      end
+    end
     if params[:tag_name]
       @posts = Post.tagged_with("#{params[:tag_name]}").page(params[:page]).per(10)
     end
@@ -105,7 +110,7 @@ class Public::PostsController < ApplicationController
   protected
 
   def posts_params
-    params.require(:post).permit(:title, :genre_name,{images: []},:price,:introduction, :user_id, :tag_list)
+    params.require(:post).permit(:title, :genre_name,{images: []},:introduction, :user_id, :tag_list)
   end
 
   def post_items_params

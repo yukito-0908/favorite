@@ -19,7 +19,7 @@ class Public::RoomsController < ApplicationController
   end
 
   def index
-    @user = current_user
-    @entries = Entry.where.not(user_id: @user.id).page(params[:page]).per(10)
+    @users = Kaminari.paginate_array(current_user.followings & current_user.followers).page(params[:page]).per(10)
   end
+
 end

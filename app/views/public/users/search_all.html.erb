@@ -38,6 +38,7 @@
         <div class="seach-main text-center">
           <% @posts.each do |post| %>
             <div class="posts d-inline-block text-center m-5" style="width:35%;">
+              <div class="user-name"><%= post.user.full_name %></div>
               <div class="post-title d-flex justify-content-between w-75" style="margin:20px auto;">
                 <div><%= post.title %></div>
                 <div>
@@ -77,6 +78,7 @@
               </div>
              </div>
           <% end %>
+          <div><%= link_to '全ての投稿', public_search_all_path,class:"btn btn-primary" %></div>
         </div>
         <%= paginate @posts %>
       </div>

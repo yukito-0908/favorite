@@ -1,2 +1,5 @@
-class EntriesController < ApplicationController
+class Public::EntriesController < ApplicationController
+
+ 
+
 end

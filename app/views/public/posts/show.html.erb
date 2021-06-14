@@ -1,25 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col m-5">
-      <div class="post">
-        <h5 class="text-center m-4">料理詳細</h5>
-        <div class="post-top d-flex justify-content-between">
-          <div class="post-show">
+    <div class="col">
+      <div class="post m-4">
+        <h4 class="text-center mb-5">料理詳細</h4>
+        <div class="post-top d-flex justify-content-around">
+          <div class="post-show text-center">
             <div class="post-title p-2">
               <p class="font-weight-bold">タイトル</p>
-              <p class=" border-bottom  border-info"><%= @post.title %></p>
+              <p class=" border-bottom  border-info px-5"><%= @post.title %></p>
             </div>
             <div class="post-genre p-2">
               <p class="font-weight-bold">ジャンル</p>
-              <p class="border-bottom border-info"><%= @post.genre_name %></p>
+              <p class="border-bottom border-info px-5"><%= @post.genre_name %></p>
             </div>
-            <div class="post-price p-2">
+             <div class="post-introduction p-2">
               <p class="font-weight-bold">値段</p>
-              <p class="border-bottom border-info"><%= @post.price %></p>
+              <p class="border-bottom border-info px-5"><%= @post.introduction %></p>
             </div>
             <div class="post-tags p-2">
               <p class="font-weight-bold">タグ一覧</p>
-              <div class="border-bottom border-info">
+              <div class="border-bottom border-info px-5">
                 <% @post.tags.each do |tag| %>
                   <p class="d-inline-block"><%= tag.name %></p>
                 <% end %>
@@ -30,7 +30,7 @@
             <%= render partial: 'public/likes/like', locals: { likes: @like } %>
           </div>
         </div>
-        <div class="image">
+        <div class="image m-5">
           <div class="profile-post mx-auto w-75">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -57,7 +57,7 @@
           <%= link_to '投稿一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success" %>
         </div>
         <div class="post-item-all m-4">
-          <div class="post_item-title w-50 mx-auto text-center m-4">
+          <div class="post_item-title w-50 mx-auto text-center mb-5">
             <h4>具材を投稿する</h4>
           </div>
           <table class="table">
@@ -66,7 +66,6 @@
                 <th>具材</th>
                 <th>値段</th>
                 <th>入手場所</th>
-                <th>具材説明</th>
                 <th>具材画像一覧</th>
                 <th>料理具材詳細へ</th>
               </tr>
@@ -75,9 +74,8 @@
               <% @post_items.each do |post_item| %>
               <tr>
                 <td><%= post_item.item %></td>
-                <td><%= post_item.price %></td>
+                <td><%= post_item.price %>円</td>
                 <td><%= post_item.place %></td>
-                <td><%= post_item.introduction %></td>
                 <td>
                   <% post_item.images.each do |images| %>
                     <%= image_tag (images.url),width: '30px', height: '30px' %>
@@ -105,25 +103,25 @@
                 <%= form_for @post_item_new,url:  public_user_post_post_item_create_path(@user.id,@post.id),local: true do |f| %>
                   <div class="modal-body">
                     <div class="form-group">
-                      <div class="m-2">
-                        <%= f.label '具材' %>
-                        <%= f.text_field :item %>
+                      <div class="m-2  d-flex  justify-content-between">
+                        <div><%= f.label '具材' %></div>
+                        <div><%= f.text_field :item %></div>
                       </div>
-                      <div class="m-2">
-                        <%= f.label '値段' %>
-                        <%= f.text_field :price %>
+                      <div class="m-2  d-flex justify-content-between">
+                        <div><%= f.label '値段' %></div>
+                        <div><%= f.text_field :price %></div>
                       </div>
-                      <div class="m-2">
-                        <%= f.label '入手場所' %>
-                        <%= f.text_field :place %>
+                      <div class="m-2  d-flex justify-content-between">
+                        <div><%= f.label '入手場所' %></div>
+                        <div><%= f.text_field :place %>円</div>
                       </div>
-                      <div class="m-2">
-                        <%= f.label '具材説明' %>
-                        <%=f.text_area :introduction, class: "padding:20px;" %>
+                      <div class="m-2 d-flex  justify-content-between">
+                        <div><%= f.label '具材説明' %></div>
+                        <div><%=f.text_area :introduction, class: "padd<div>ing:20px;" %></div>
                       </div>
-                      <div class="m-2">
-                        <%= f.label '料理画像' %>
-                        <%= f.file_field :images, multiple: true %>
+                      <div class="m-2  d-flex justify-content-between">
+                        <div><%= f.label '料理画像' %></div>
+                        <div><%= f.file_field :images, multiple: true %></div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>

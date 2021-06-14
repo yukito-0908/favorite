@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col m-4">
       <div class="user-title">
-        <h5 class="text-center">ユーザー詳細</h5>
+        <h4 class="text-center mb-5">ユーザー詳細</h4>
       </div>
       <div class="mypage-path d-flex justify-content-around">
         <div class="name w-50">
@@ -15,42 +15,44 @@
             <div class="border-bottom  border-info"><%= @user.full_name_kana%></div>
           </div>
         </div>
-        <div class="follow">
-          <div class="following  p-2">
-            <div class="font-weight-bold">フォロー数</div>
-            <div class="border-bottom  border-info"><%=link_to @user.followings.count,public_user_followings_path(@user.id), class:"text-success" %></div>
+        <div class="chat-room d-flex">
+          <div class="follow">
+            <div class="following  p-2">
+              <div class="font-weight-bold">フォロー数</div>
+              <div class="border-bottom  border-info"><%=link_to @user.followings.count,public_user_followings_path(@user.id), class:"text-success" %></div>
+            </div>
+            <div class="followers  p-2">
+              <div class="font-weight-bold">フォロワーー数</div>
+              <div class="border-bottom  border-info"><%=link_to @user.followers.count, public_user_followers_path(@user.id), class:"text-success" %></div>
+            </div>
           </div>
-          <div class="followers  p-2">
-            <div class="font-weight-bold">フォロワーー数</div>
-            <div class="border-bottom  border-info"><%=link_to @user.followers.count, public_user_followers_path(@user.id), class:"text-success" %></div>
-          </div>
-        </div>
-        <div class="follow-link">
-          <div class="followings m-3">
-            <% if @user.id == current_user.id %>
-            <% else %>
-              <% if current_user.following?(@user) %>
-                <%= link_to "Unfollow", public_user_relationships_path(@user.id), method: :delete,class: "btn btn-success mt-4" %>
+          <div class="follow-link">
+            <div class="followings mt-3 ml-5">
+              <% if @user.id == current_user.id %>
               <% else %>
-                <%= link_to "Follow", public_user_relationships_path(@user.id), method: :post,class:"btn btn-success mt-4" %>
+                <% if current_user.following?(@user) %>
+                  <%= link_to "Unfollow", public_user_relationships_path(@user.id), method: :delete,class: "btn btn-success mt-4" %>
+                <% else %>
+                  <%= link_to "Follow", public_user_relationships_path(@user.id), method: :post,class:"btn btn-success mt-4" %>
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
-          <div class="chat-room m-3">
-          <% unless @user.id == current_user.id %>
-            <% if (current_user.following? @user) && (@user.following? current_user)  %>
-              <% if @isRoom == true %>
-                <%= link_to 'チャットを始める',  public_room_path(@roomId), class:"btn btn-primary" %>
-              <% else %>
-                <%= form_for @room, url:  public_rooms_path do |f| %>
-                  <%= fields_for @entry do |e| %>
-                  <%= e.hidden_field :user_id, value: @user.id %>
+            </div>
+            <div class="chat-room my-2 ml-5">
+            <% unless @user.id == current_user.id %>
+              <% if (current_user.following? @user) && (@user.following? current_user)  %>
+                <% if @isRoom == true %>
+                  <%= link_to 'チャットを始める',  public_room_path(@roomId), class:"btn btn-primary" %>
+                <% else %>
+                  <%= form_for @room, url:  public_rooms_path do |f| %>
+                    <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, value: @user.id %>
+                    <% end %>
+                    <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
                   <% end %>
-                  <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
                 <% end %>
               <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
       </div>
@@ -83,9 +85,12 @@
             </div>
           <% else %>
           <% end %>
-            <div class="user-all-link m-2">
-              <%= link_to 'ユーザー一覧へ',public_users_path,class: "btn btn-secondary" %>
-            </div>
+          <div class="user-all-link m-2">
+            <%= link_to 'ユーザー一覧へ',public_users_path,class: "btn btn-secondary" %>
+          </div>
+          <div class="user-all-link-posts m-2">
+            <%= link_to '投稿一覧へ', public_user_posts_path(@user.id),class:"btn btn-info" %>
+          </div>
         </div>
     </div>
   </div>

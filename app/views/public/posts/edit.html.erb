@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
-    <div class="col m-4">
+    <div class="col">
       <div class="post-all">
-        <h5 class="text-center m-4">料理確認</h5>
+        <h4 class="text-center mb-5">料理確認</h4>
         <div class="post-top text-center mx-auto w-75">
           <div class="post-show">
             <div class="post-title p-2">
@@ -55,32 +55,28 @@
               <%= form_with model: @post, url: public_user_post_path(@user.id,@post.id),local: true do |f| %>
                 <div class="modal-body">
                   <div class="form-group">
-                    <div class="m-2">
-                      <%= f.label 'タイトル' %>
-                      <%= f.text_field :title %>
+                    <div class="m-2 d-flex justify-content-between m-2">
+                      <div><%= f.label 'タイトル' %></div>
+                      <div><%= f.text_field :title %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label 'ジャンル' %>
-                      <%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %>
+                    <div class="m-2 d-flex justify-content-between m-2">
+                      <div><%= f.label 'ジャンル' %></div>
+                      <div><%= select :post, :genre_name, Post.genre_names.keys.to_a, include_blank: true %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label '値段' %>
-                      <%= f.text_field :price %>
+                    <div class="m-2 d-flex justify-content-between ">
+                      <div><%= f.label '料理説明' %></div>
+                      <div><%=f.text_area :introduction, style:"padding:30px;" %></div>
                     </div>
-                    <div class="m-2">
-                      <%= f.label '料理説明' %>
-
-                      <%=f.text_area :introduction, class: "padding:20px;" %>
-                    </div>
-                    <div class="m-2">
-                      <%= f.label '料理画像' %>
-                      <%= f.file_field :images, multiple: true %>
+                    <div class="m-2 d-flex justify-content-between m-2">
+                      <div><%= f.label '料理画像' %></div>
+                      <div><%= f.file_field :images, multiple: true %></div>
                     </div>
                     <div class="m-2">
                       <%= f.label 'タグ' %>
                       <%= f.text_field :tag_list, value: @post.tag_list.join(','), class: "form-control",placeholder: "複数タグをつける場合は,で区切ってください" %>
                     </div>
                     <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
                       <%= f.submit '投稿する', class: "btn btn-primary" %>
                     </div>
                   </div>
@@ -94,6 +90,7 @@
           <div class="d-flex flex-row-reverse m-4 d-flex">
             <div class="m-2"><%= link_to '全て排除する',  public_user_post_post_item_destroy_path(@user.id,@post.id),method: :delete, class: "btn btn-danger" %></div>
             <div class="m-2"><%= link_to '料理一覧へ', public_user_posts_path(@user.id),class: "btn btn-success" %></div>
+             <div class="m-2"><%= link_to '料理詳細へ', public_user_post_path(@user.id,@post.id),class: "btn btn-info" %></div>
           </div>
           <table class="table">
             <thead>

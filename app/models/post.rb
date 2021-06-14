@@ -17,8 +17,13 @@ class Post < ApplicationRecord
   end
 
 
+
   def self.posts_all(posts_all)
-    Post.where('title LIKE ?', "%#{posts_all}%")
+    if posts_all
+      Post.where('title LIKE ?', "%#{posts_all}%")
+    else
+      Post.all
+    end
   end
 
 

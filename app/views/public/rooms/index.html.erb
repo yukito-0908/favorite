@@ -1,32 +1,36 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <div class="chat-user m-4 text-center">
-        <h4>チャットユーザー一覧</h4>
+      <div class="chat-user m-5 text-center">
+        <h4>チャットユーザー</h4>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ユーザーname</th>
-            <th>ユーザー画像</th>
-            <th>フォロー数</th>
-            <th>フォロワー数</th>
-            <th>DMをする</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @entries.each do |entry| %>
-          <tr>
-          <td><%= entry.user.full_name %></td>
-          <td><%= attachment_image_tag entry.user, :image, :fill, 40, 40, fallback: "no_image.jpg"%></td>
-          <td><%= entry.user.followings.count %></td>
-          <td><%= entry.user.followers.count %></td>
-          <td><%=link_to 'チャットへ', public_room_path(entry.room.id), class: "btn btn-success" %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-       <%= paginate @entries %>
+      <% if @users.present? %>
+        <table class="table">
+          <thead class="bg-light">
+            <tr>
+              <th>ユーザーname</th>
+              <th>ユーザー画像</th>
+              <th>フォロー数</th>
+              <th>フォロワー数</th>
+              <th>DMをする</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+            <tr>
+            <td><%= user.full_name %></td>
+            <td><%= attachment_image_tag user, :image, :fill, 40, 40, fallback: "no_image.jpg"%></td>
+            <td><%= user.followings.count %></td>
+            <td><%= user.followers.count %></td>
+            <td><%=link_to 'ユーザー詳細へ', public_user_path(user.id), class:"btn btn-success" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>相互フォローの状態の場合のみDMができます</p>
+      <% end %>
+       <%= paginate @users %>
     </div>
   </div>
 </div>

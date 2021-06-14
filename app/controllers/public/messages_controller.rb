@@ -8,4 +8,5 @@ class Public::MessagesController < ApplicationController
     end
     redirect_to public_room_path(@message.room_id)
   end
+
 end
