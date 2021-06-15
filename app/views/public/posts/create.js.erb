@@ -1,10 +1,9 @@
-
-  $("textarea").val("");
-  $("input").val("");
-  $('body').removeClass('modal-open');
-  $('.modal-backdrop').remove();
-  $('#exampleModal').remove();
-  $('.posts').html("<%= escape_javascript(render 'posts', posts: @posts) %>")
+$("textarea").val("");
+$("input").val("");
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+$('#exampleModal').remove();
+$('.posts').html("<%= escape_javascript(render 'posts', posts: @posts) %>")
 
 
 

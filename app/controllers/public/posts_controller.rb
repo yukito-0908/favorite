@@ -22,7 +22,8 @@ class Public::PostsController < ApplicationController
   if  @post.save
     redirect_to public_user_posts_path(@user.id)
   else
-    render index
+    @posts = @user.posts.where(is_active: true).page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順
+    render :index
   end
   end
 
@@ -31,8 +32,11 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:post_id])
     @post_item = PostItem.new(post_items_params)
     @post_item.post_id  = @post.id
-  if  @post_item.save
+  if  @post_item.save!
     redirect_to public_user_post_path(@user.id,@post.id)
+  else
+    @posts = @user.posts.where(is_active: true).page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順
+    render :index
   end
   end
 
@@ -97,7 +101,7 @@ class Public::PostsController < ApplicationController
 
   def posts_all
     @user = current_user
-    @posts = Post.posts_all(params[:posts_all]).where("(is_active: true) AND (Post.user.is_active == 'E')").page(params[:page]).per(10)
+    @posts = Post.posts_all(params[:posts_all]).where(is_active: true).order("id DESC").page(params[:page]).per(10)
     @posts_all = params[:posts_all]
   end
 

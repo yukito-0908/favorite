@@ -7,6 +7,7 @@ devise_for :users, controllers: {
   registrations: 'user/registrations'
 }
 
+
 namespace :public, path: "" do
   get 'users/mypage' => 'users#mypage'
   get'posts_all' => 'posts#posts_all'
@@ -21,6 +22,9 @@ namespace :public, path: "" do
     resources :likes, only: [:create, :destroy, :index]
     resources :comments, only: [:create, :destroy]
   end
+    get 'unsubscribe' => 'users#unsubscribe', as: 'confirm_unsubscribe'
+    patch 'withdraw' => 'users#withdraw', as: 'withdraw_user'
+    put 'withdraw' => 'users#withdraw'
     get 'users/tags' => 'posts#post_tags'
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
@@ -31,11 +35,12 @@ namespace :public, path: "" do
   resources :rooms, only: [:create,:show, :index]
   end
 
-
   devise_for :admins, controllers: {
   sessions: 'user/sessions',
   registrations: 'user/registrations'
 }
+
+
 
 
 namespace :admins do

@@ -43,7 +43,7 @@
             <%=link_to '投稿を排除する', admins_post_path(@post.id),method: :delete,class: "btn btn-danger" %>
           </div>
         </div>
-         <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
+        <div class="modal fade" id="Mymodel" tabindex="-1" role="dialog" aria-labelledby="Mymodel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -116,24 +116,24 @@
             </tr>
           </thead>
           <tbody>
-          <% @post.post_items.each do |post_item| %>
-            <tr>
-              <td><%= post_item.item %></td>
-              <td><%= post_item.price %></td>
-              <td><%= post_item.place %></td>
-              <td><%= post_item.introduction %></td>
-              <td>
-                <% post_item.images.each do |images| %>
-                  <%= image_tag (images.url),width: '30px', height: '30px' %>
-                <% end %>
-              </td>
-              <td class="d-flex">
-                <div><%= link_to '料理詳細へ',   admins_post_path(post.id), class: "btn btn-primary mr-2"  %></div>
-              </td>
-            </tr>
-          <% end %>
-            </tbody>
-          </table>
+            <% @post.post_items.each do |post_item| %>
+              <tr>
+                <td><%= post_item.item %></td>
+                <td><%= post_item.price %></td>
+                <td><%= post_item.place %></td>
+                <td><%= post_item.introduction %></td>
+                <td>
+                  <% post_item.images.each do |images| %>
+                    <%= image_tag (images.url),width: '30px', height: '30px' %>
+                  <% end %>
+                </td>
+                <td class="d-flex">
+                  <div><%= link_to '料理詳細へ',   admins_post_path(post.id), class: "btn btn-primary mr-2"  %></div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

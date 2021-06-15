@@ -16,7 +16,7 @@ class Post < ApplicationRecord
     likes.where(user_id: user_id).exists?
   end
 
-  
+
 
 
   def self.posts_all(posts_all)

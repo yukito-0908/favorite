@@ -5,8 +5,8 @@
         <div class="tag-title">
         <% if @tags.present? %>
           <% @tags.each do |tag| %>
-            <span class="badge  badge-primary mr-2 p-2">
-              <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white" %>
+            <span class="badge  badge-primary m-2 p-2">
+              <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white my-2" %>
             </span>
           <% end %>
         <% else %>
@@ -74,9 +74,9 @@
           </div>
         </div>
         <% if @user == current_user %>
-        <button type="button" class="btn btn-primary ml-4" data-toggle="modal" data-target="#exampleModal">
-          新規投稿
-        </button>
+          <button type="button" class="btn btn-primary ml-4" data-toggle="modal" data-target="#exampleModal">
+            新規投稿
+          </button>
         <% else %>
         <% end %>
         <%= paginate @posts %>
@@ -97,7 +97,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= form_for @post,url:  public_user_posts_path(@user.id),local: true do |f| %>
+      <%= form_with model: @post,url:  public_user_posts_path(@user.id),local: true do |f| %>
         <div class="modal-body">
           <div class="m-2 d-flex justify-content-between m-2">
             <div><%= f.label 'タイトル' %></div>

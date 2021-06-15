@@ -42,6 +42,8 @@ class User < ApplicationRecord
     self.likes.exists?(post_id: post.id)
   end
 
-
+  def active_for_authentication?
+    super && (self.is_active == "E")
+  end
 
 end

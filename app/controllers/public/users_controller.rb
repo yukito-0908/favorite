@@ -1,5 +1,9 @@
 class Public::UsersController < ApplicationController
 
+  def mypage
+    @user = current_user
+  end
+
   def edit
      @user = User.find(params[:id])
   end
@@ -31,6 +35,7 @@ class Public::UsersController < ApplicationController
 
   def search_all
     @user = current_user
+    @posts_all = Post.posts_all(params[:posts_all])
     @posts = Post.all.where(is_active: true).order("id DESC").page(params[:page]).per(10)
     if params[:ranking] =="1"
         @posts = Post.joins(:likes).group(:post_id).order('count(user_id) desc').page(1).per(10)
@@ -43,6 +48,16 @@ class Public::UsersController < ApplicationController
 
 
 
+  def unsubscribe
+    @user = User.find(params[:user_id])
+  end
+
+  def withdraw
+    @user = User.find(params[:user_id])
+    @user.update(is_active: 1)
+    reset_session
+    redirect_to root_path
+  end
 
 
 
@@ -52,11 +67,9 @@ class Public::UsersController < ApplicationController
     redirect_to public_user_path(@user.id)
   end
 
-  def mypage
-    @user = current_user
-  end
 
 
+  protected
   def users_params
     params.require(:user).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :phone_number, :is_active, :image)
   end

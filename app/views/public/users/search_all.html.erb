@@ -48,12 +48,12 @@
                     📝<%= post.comments.count %>
                   </div>
                 </div>
-                <div>
+                <div class="m-2">
                   <% post.tags.each do |tag| %>
-                    <p class="d-inline-block"><%= tag.name %></p>
+                    <div class="d-inline-block"><%= tag.name %></div>
                   <% end %>
                 </div>
-                <div class="image">
+                <div class="image m-2">
                   <div class="profile-post mx-auto w-75">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">

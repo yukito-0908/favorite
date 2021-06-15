@@ -22,29 +22,27 @@
           <% end %>
         </tbody>
       </table>
-
-        <div class="profile-post w-50 mx-auto text-center p-5">
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <% @post.images.each_with_index  do |image, index| %>
-              <% if index == 0 %>
-                <div class="carousel-item active">
-                  <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
-                </div>
-              <% else %>
-                <div class="carousel-item">
-                  <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
-                </div>
-              <% end %>
-              <% end %>
+      <div class="profile-post w-50 mx-auto text-center p-5">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <% @post.images.each_with_index  do |image, index| %>
+            <% if index == 0 %>
+              <div class="carousel-item active">
+                <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
               </div>
-          </div>
+            <% else %>
+              <div class="carousel-item">
+                <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
+              </div>
+            <% end %>
+            <% end %>
+            </div>
         </div>
-        <div class="post_item-link text-center">
-          <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post.id),class: "btn btn-primary m-2" %>
-          <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success m-2" %>
-          <%= link_to '料理詳細へ', public_user_post_path(@user.id,@post.id),class: "btn btn-info m-2" %>
-        </div>
+      </div>
+      <div class="post_item-link text-center">
+        <%= link_to '編集する',  edit_public_user_post_path(@user.id,@post.id),class: "btn btn-primary m-2" %>
+        <%= link_to '一覧に戻る',   public_user_posts_path(@user.id), class: "btn btn-success m-2" %>
+        <%= link_to '料理詳細へ', public_user_post_path(@user.id,@post.id),class: "btn btn-info m-2" %>
       </div>
     </div>
   </div>
