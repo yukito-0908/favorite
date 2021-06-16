@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
-  has_many :post_items
+  has_many :post_items,  dependent: :destroy
   acts_as_taggable   # acts_as_taggable_on :tags の省略
   acts_as_taggable_on :skills, :interests  # @post.skill_list とかが使えるようになる
   has_many :likes,  dependent: :destroy
