@@ -9,7 +9,7 @@
 
   <header class="m-4  d-flex justify-content-between">
     <div class="header-logo">
-      <%= image_tag 'favorite_food.jpeg' %>
+      <%= image_tag 'favorite_food.jpg' %>
     </div>
   <div class="header-item d-flex">
     <% if admin_signed_in? %>
@@ -18,10 +18,10 @@
       <li class="mx-4" style="list-style:none;"><%= link_to "投稿一覧", admins_posts_path,"data-turbolinks": false, class: "text-dark rounded border border-dark p-2" %></li>
       <li class="mx-4" style="list-style:none;"><%= link_to "タグ一覧", admins_tags_path, class: "text-dark rounded border border-dark p-2" %></li>
     <% elsif user_signed_in? %>
-      <%= link_to  destroy_user_session_path, method: :delete,data: { confirm: 'ログアウトしますか？' },class:"m-2" do %> <%= image_tag 'door.jpeg' %> <% end %>
-      <%= link_to   public_search_all_path,"data-turbolinks": false,class:"m-2"  do %> <%= image_tag 'searh.jpeg' %> <% end %>
-      <%= link_to   public_users_mypage_path,class:"m-2" do %> <%= image_tag 'mypage.jpeg' %> <% end %>
-      <%= link_to  public_rooms_path,class:'m-2' do %><%= image_tag 'mail.jpeg' %> <% end %>
+      <%= link_to  destroy_user_session_path, method: :delete,data: { confirm: 'ログアウトしますか？' },class:"m-2" do %> <%= image_tag 'door.jpg' %> <% end %>
+      <%= link_to   public_search_all_path,"data-turbolinks": false,class:"m-2"  do %> <%= image_tag 'searh.jpg' %> <% end %>
+      <%= link_to   public_users_mypage_path,class:"m-2" do %> <%= image_tag 'mypage.jpg' %> <% end %>
+      <%= link_to  public_rooms_path,class:'m-2' do %><%= image_tag 'mail.jpg' %> <% end %>
     <% else %>
       <li class="mx-4" style="list-style:none;"><%= link_to "ログイン", new_user_session_path, class: "text-dark rounded border border-dark p-2" %></li>
       <li class="mx-4" style="list-style:none;"><%= link_to "新規登録", new_user_registration_path,  class: "text-dark rounded border border-dark p-2" %></li>
