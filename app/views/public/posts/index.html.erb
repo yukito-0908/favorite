@@ -34,7 +34,7 @@
                     <td><%= post.genre_name %></td>
                     <td>
                       <% post.images.each do |post| %>
-                      <%= image_tag(post.url),width: '30px', height: '30px' %>
+                        <%= image_tag(post.url, width: '30px', height: '30px') %>
                       <% end %>
                     </td>
                     <td><%= post.likes.count %></td>
