@@ -17,7 +17,7 @@
           <% @post.likes.each do |like| %>
             <tr>
               <td><%= like.user.full_name %></td>
-              <td><%= attachment_image_tag like.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
+              <td><%= attachment_image_tag like.user, :image, :fill, 60, 60 %></td>
               <td><%= like.user.posts.count %></td>
               <td><%= like.user.followings.count %></td>
               <td><%= like.user.followers.count %></td>
