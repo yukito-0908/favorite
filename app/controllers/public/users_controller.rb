@@ -38,11 +38,9 @@ class Public::UsersController < ApplicationController
     @posts_all = Post.posts_all(params[:posts_all])
     @posts = Post.all.where(is_active: true).order("id DESC").page(params[:page]).per(10)
     if params[:ranking] =="1"
-        #@posts = Post.joins(:likes).group(:post_id).order('count(user_id) desc').page(1).per(10)
-        @posts = Post.joins(:likes).group(:post_id).order('count(likes.user_id) desc').page(1).per(10)
+      @posts = Post.joins(:likes).group(:post_id).order('count(likes.user_id) desc').page(1).per(10)
     elsif params[:ranking] == "2"
-       #@posts = Post.joins(:comments).group(:post_id).order('count(user_id) desc').page(1).per(10)
-       @posts = Post.joins(:comments).group(:post_id).order('count(comments.user_id) desc').page(1).per(10)
+      @posts = Post.joins(:comments).group(:post_id).order('count(comments.user_id) desc').page(1).per(10)
     elsif params[:ranking] == "3"
       @posts = Post.all.order(id: "DESC").page(1).per(10)
     end
@@ -66,7 +64,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(users_params)
-    redirect_to public_user_path(@user.id)
+    redirect_to  public_users_mypage_path
   end
 
 

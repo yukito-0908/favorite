@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
     @user = User.find(params[:user_id])
     @post = Post.new(posts_params)
     @post.user_id = @user.id
-  if  @post.save!
+  if  @post.save
     redirect_to public_user_posts_path(@user.id)
   else
     @posts = @user.posts.where(is_active: true).page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順

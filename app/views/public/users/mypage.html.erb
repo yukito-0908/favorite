@@ -53,10 +53,13 @@
             </div>
           </div>
         </div>
-        <div class="user-item  d-flex w-50 mx-auto justify-content-center">
+        <div class="user-item  d-flex w-75 mx-auto justify-content-center">
           <% if @user.id == current_user.id %>
             <div class="user-post m-2">
               <%= link_to '投稿する',  public_user_posts_path(@user.id), class: "btn btn-success" %>
+            </div>
+            <div class="user-edit m-2">
+              <%= link_to '編集する', edit_public_user_path(@user), class: "btn btn-primary" %>
             </div>
           <% else %>
           <% end %>
@@ -64,10 +67,10 @@
             <%= link_to 'ユーザー一覧へ',public_users_path,class: "btn btn-secondary" %>
           </div>
            <div class="user-all-link m-2">
-            <%= link_to '投稿一覧へ', public_user_posts_path(@user.id),class: "btn btn-primary" %>
+            <%= link_to '投稿一覧へ', public_user_posts_path(@user.id),class: "btn btn-info" %>
           </div>
           <div class="user-all-link m-2">
-            <%= link_to '退会',  public_user_confirm_unsubscribe_path(@user.id),class: "btn btn-primary" %>
+            <%= link_to '退会',  public_user_confirm_unsubscribe_path(@user.id),class: "btn btn-danger" %>
           </div>
         </div>
       </div>
