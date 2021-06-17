@@ -17,13 +17,16 @@
           </thead>
           <tbody>
             <% @users.each do |user| %>
-            <tr>
-            <td><%= user.full_name %></td>
-            <td><%= attachment_image_tag user, :image, :fill, 40, 40, fallback: "no_image.jpg"%></td>
-            <td><%= user.followings.count %></td>
-            <td><%= user.followers.count %></td>
-            <td><%=link_to 'ユーザー詳細へ', public_user_path(user.id), class:"btn btn-success" %></td>
-            </tr>
+              <% if user.is_active == false %>
+              <% else %>
+                <tr>
+                <td><%= user.full_name %></td>
+                <td><%= attachment_image_tag user, :image, format: 'jpeg', size: "40x40" %></td>
+                <td><%= user.followings.count %></td>
+                <td><%= user.followers.count %></td>
+                <td><%=link_to 'ユーザー詳細へ', public_user_path(user.id), class:"btn btn-success" %></td>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>
