@@ -21,7 +21,7 @@
               <% if m.user.id == current_user.id %>
                 <div class="balloon_r">
                   <div class="faceicon">
-                    <%= attachment_image_tag m.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%>
+                    <%= attachment_image_tag m.user, :image, format: 'jpeg', size: "60x60" %>
                   </div>
                   <div class="says text-left">
                     <p><%= m.message %></br>
@@ -32,7 +32,7 @@
               <% else %>
                 <div class="balloon_l">
                   <div class="faceicon">
-                    <%= attachment_image_tag m.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%>
+                     <%= attachment_image_tag m.user, :image, format: 'jpeg', size: "60x60" %>
                   </div>
                   <div class="says">
                     <p><%= m.message %></br>
