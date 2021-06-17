@@ -7,7 +7,7 @@
       </div>
       <% @entries.each do |e| %>
         <div class="w-75 mz-auto">
-           <%= attachment_image_tag e.user, :image, :fill, 60, 60, fallback: "no_image.jpg"%>
+           <%= attachment_image_tag e.user, :image, format: 'jpeg', size: "60x60" %>
             <a class="rooms-user-link" href="/users/<%= e.user.id %>" style="color:black;">
               <%= e.user.full_name %>さん
             </a>
