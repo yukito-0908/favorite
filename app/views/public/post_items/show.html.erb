@@ -12,21 +12,18 @@
           </tr>
         </thead>
         <tbody>
-          <% @post_items.each do |post_item| %>
           <tr>
-            <td><%= post_item.item %></td>
-            <td><%= post_item.price %></td>
-            <td><%= post_item.place %></td>
-            <td><%= post_item.introduction  %></td>
+            <td><%= @post_item.item %></td>
+            <td><%= @post_item.price %></td>
+            <td><%= @post_item.place %></td>
+            <td><%= @post_item.introduction  %></td>
           </tr>
-          <% end %>
         </tbody>
       </table>
       <div class="profile-post w-50 mx-auto text-center p-5">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <% @post_items.each do |post_item| %>
-              <% post_item.images.each_with_index  do |image, index| %>
+            <% @post_item.images.each_with_index  do |image, index| %>
               <% if index == 0 %>
                 <div class="carousel-item active">
                   <%= image_tag (image.url),class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
@@ -36,9 +33,8 @@
                   <%= image_tag (image.url), class: "bd-placeholder-img bd-placeholder-img-lg d-block w-80 mx-auto", style: "height:150px;" %>
                 </div>
               <% end %>
-              <% end %>
             <% end %>
-            </div>
+          </div>
         </div>
       </div>
       <div class="post_item-link text-center">
@@ -49,7 +45,4 @@
     </div>
   </div>
 </div>
-
-
-
 

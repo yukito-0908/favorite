@@ -1,9 +1,10 @@
 class Public::PostItemsController < ApplicationController
 
-  def index
+
+  def show
     @user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
-    @post_items = @post.post_items
+    @post_item = PostItem.find(params[:id])
   end
 
   def destroy

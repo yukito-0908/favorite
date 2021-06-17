@@ -81,7 +81,7 @@
                     <%= image_tag (images.url),width: '30px', height: '30px' %>
                   <% end %>
                 </td>
-                <td><%= link_to '料理具材詳細へ',  public_user_post_post_items_path(@user.id,@post.id), class: "btn btn-primary" %></td>
+                <td><%= link_to '料理具材詳細へ',   public_user_post_post_item_path(@user.id,@post.id,post_item.id), "data-turbolinks": false,class: "btn btn-primary" %></td>
               </tr>
               <% end %>
             </tbody>

@@ -18,7 +18,7 @@ namespace :public, path: "" do
     resources :posts, only: [:index,:create,:show,:edit,:update, :destroy] do
     delete 'post_item_destroy'
     post 'post_item_create'
-    resources :post_items, only: [:destroy, :index]
+    resources :post_items, only: [:destroy,:show]
     resources :likes, only: [:create, :destroy, :index]
     resources :comments, only: [:create, :destroy]
   end
