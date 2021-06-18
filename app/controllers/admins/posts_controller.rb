@@ -19,7 +19,6 @@ class Admins::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_items = @post.post_items
-
   end
 
   def edit
