@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <% @users.each do |user| %>
-              <% if user.is_active == false %>
+              <% if user.is_active == "F" %>
               <% else %>
                 <tr>
                 <td><%= user.full_name %></td>
