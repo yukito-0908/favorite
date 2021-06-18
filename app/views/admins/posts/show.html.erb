@@ -15,7 +15,7 @@
             </div>
             <div class="post-price p-2">
               <p class="font-weight-bold">値段</p>
-              <p class="border-bottom border-info"><%= @post.price %></p>
+              <p class="border-bottom border-info"><%= @post.price %>円</p>
             </div>
             <div class="post-tags p-2">
               <p class="font-weight-bold">タグ一覧</p>
@@ -47,7 +47,7 @@
               <% @post_items.each do |post_item| %>
               <tr>
                 <td><%= post_item.item %></td>
-                <td><%= post_item.price %></td>
+                <td><%= post_item.price %>円</td>
                 <td><%= post_item.place %></td>
                 <td><%= post_item.introduction %></td>
                 <td>
