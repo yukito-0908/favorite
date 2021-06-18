@@ -5,7 +5,7 @@
         <div class="mypage-title text-center">
            <h4>マイページ</h4>
         </div>
-        <div class="mypage-path d-flex justify-content-around">
+        <div class="mypage-path text-center">
           <div class="name w-50">
             <div class="user-name p-2">
               <div class="font-weight-bold">名前</div>
@@ -14,16 +14,6 @@
             <div class="user-name-kana p-2">
               <div class="font-weight-bold">名前(カナ)</div>
               <div class="border-bottom  border-info"><%= @user.full_name_kana%></div>
-            </div>
-          </div>
-          <div class="follow">
-            <div class="following font-weight-bold p-2">
-              <div class="font-weight-bold">フォローー数</div>
-              <div class="border-bottom  border-info"><%=link_to @user.followings.count,public_user_followings_path(@user.id), class:"text-success" %></div>
-            </div>
-            <div class="followers font-weight-bold p-2">
-              <div class="font-weight-bold">フォロワーー数</div>
-              <div class="border-bottom  border-info"><%=link_to @user.followers.count, public_user_followers_path(@user.id), class:"text-success" %></div>
             </div>
           </div>
         </div>
