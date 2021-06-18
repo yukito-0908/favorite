@@ -3,10 +3,10 @@
     <div class="col">
       <header class="text-right">
         <div class="tag-title">
-        <% if @tags.present? %>
+        <% if @posts.present? %>
           <% @tags.each do |tag| %>
             <span class="badge  badge-primary m-2 p-2">
-              <%= link_to "#{tag.name}(#{tag.taggings_count})", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white my-2" %>
+              <%= link_to "#{tag.name}", public_user_posts_path(@user.id,tag_name: tag.name), class: "text-white" %>
             </span>
           <% end %>
         <% else %>
