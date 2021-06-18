@@ -1,7 +1,7 @@
 class Public::PostsController < ApplicationController
 
   def index
-    @user = User.find(params[:user_id])
+    @user = current_user
     @post = Post.new
     @posts = @user.posts.where(is_active: true).page(params[:page]).per(10)   # 全タグ(Postモデルからtagsカラムを降順
     @posts.each do |post|
