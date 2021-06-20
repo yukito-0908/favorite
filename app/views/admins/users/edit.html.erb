@@ -39,10 +39,6 @@
                 <p>自己紹介</p>
                 <p><%= f.text_area :introduction %></p>
               </div>
-              <div class="user-introduction d-flex justify-content-between m-3">
-                <p>パスワード</p>
-                <p><%= f.text_area :password %></p>
-              </div>
               <div class="user-is_active d-flex justify-content-around m-3">
                 <div>
                   <%= f.radio_button :is_active, 'E', checked: true %>
