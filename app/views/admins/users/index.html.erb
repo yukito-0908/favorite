@@ -21,7 +21,7 @@
           <% @users.each do |user| %>
             <tr>
               <td><%= user.full_name %></td>
-              <td><%= attachment_image_tag user, :image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
+              <td><%= attachment_image_tag user, :image, :fill, 60, 60 %></td>
               <td><%= user.posts.count %></td>
               <td><%= user.followings.count %></td>
               <td><%= user.followers.count %></td>

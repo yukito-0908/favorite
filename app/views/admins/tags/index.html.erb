@@ -18,7 +18,7 @@
             <tr>
               <td><%= tag.name %></td>
               <td><%= tag.taggings_count %></td>
-              <td><%=link_to '表示する',    admins_tags_path(tag: tag.name) %></td>
+              <td><%=link_to '表示する',admins_tags_path(tag: tag.name) %></td>
             </tr>
             <% end %>
           </tbody>
@@ -51,7 +51,7 @@
                     <td><%= post.likes.count %></td>
                     <td><%= post.tag_list %></td>
                     <td>
-                      <%= link_to '料理詳細へ',  edit_admins_post_path(post.id) ,'data-turbolinks': false,class: "btn btn-success" %>
+                      <%= link_to '料理詳細へ',   admins_post_path(post.id) ,'data-turbolinks': false,class: "btn btn-success" %>
                     </td>
                   </tr>
                  <% end %>
